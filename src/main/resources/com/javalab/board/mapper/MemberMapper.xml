@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 매퍼XML -->
+<!-- 원래 인터페이스에 있던 쿼리문을 분리해서 여기로 이동 -->
+<!-- 내가 참조하는 인터페이스 경로와 이름 설정 -->
+<mapper
+	namespace="com.javalab.board.mapper.MemberMapperInterface">
+
+	<!-- 회원가입 -->
+	<insert id="createMember" parameterType="MemberVo">
+		Insert INTO member (member_id, password, name, email)
+		VALUES (#{memberId}, #{password}, #{name}, #{email})
+	</insert>
+	<!-- 회원 포인트 증가 -->
+	<update id="updateMemberPoint" parameterType="String">
+		UPDATE MEMBER
+		SET POINT = POINT + 1
+		WHERE MEMBER_ID = #{memberId}
+
+	</update>
+
+	<!-- 회원 정보 조회 -->
+	<select id="getMember" parameterType="String"
+		resultType="MemberVo">
+		SELECT member_id, password, name, email, point
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
+
+</mapper>

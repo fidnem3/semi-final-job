@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 별명 설정
+		쿼리문에 풀경로의 도메인 클래스를 사용하기 불편해서 짧게 줄여서 사용하기 위한
+		클래스의 별칭을 정의하는 구문이다. -->
+	<typeAliases>
+		<!-- <typeAlias type="com.javalab.mybatis.vo.BoardVo" alias="BoardVo"/> -->
+	</typeAliases>
+	
+</configuration>	
