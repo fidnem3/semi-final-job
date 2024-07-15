@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>채용 공고 목록</title>
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/jobpost-list.css">
+	href="/resources/css/jobPost-list.css">
 
 </head>
 <body>
@@ -49,7 +49,7 @@
 
 
 
-	<a href="/jobpost/create" class="create-button">새 공고 작성</a>
+	<a href="/jobPost/create" class="create-button">새 공고 작성</a>
 
 	<div id="jobPostings">
 		<!-- 여기에 필터링된 채용 공고가 동적으로 추가됩니다 -->
@@ -74,6 +74,6 @@
 </script>
 
 
-	<script src="/resources/js/jobpost-list.js"></script>
+	<script src="/resources/js/jobPost-list.js"></script>
 </body>
 </html>
