@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter @Setter
 @ToString
 public class ResumeVo { 
-    private String resumeId; // 이력서ID
+    private int resumeId; // 이력서ID
     private String jobSeekerId; // 유저아이디
     private String title; // 제목
     private String content; //내용

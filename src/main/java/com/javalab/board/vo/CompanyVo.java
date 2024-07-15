@@ -12,6 +12,8 @@ import lombok.ToString;
 @ToString
 public class CompanyVo {
 	private String compId; // 기업ID
+	private int jobPostId;
+	private int resumeId;
 	private String password; // 기업 비밀번호
 	private String email; //기업 이메일
 	private String companyName; // 기업명
