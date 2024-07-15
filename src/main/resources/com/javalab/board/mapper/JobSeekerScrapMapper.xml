@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.javalab.board.mapper.JobSeekerMapperInterface">
+
+
+	<!-- ResultMap to map the result set to JobSeekerScrapVo -->
+    <resultMap id="JobSeekerScrapResultMap" type="com.javalab.board.vo.JobSeekerScrapVo">
+        <id property="scrapId" column="scrap_id"/>
+        <result property="jobSeekerId" column="job_seeker_id"/>
+        <result property="jobPostId" column="job_post_id"/>
+        <result property="created" column="created"/>
+    </resultMap>
+
+    <!-- Select query to get scraps by job seeker ID -->
+    <select id="findByJobSeekerId" resultMap="JobSeekerScrapResultMap">
+        SELECT * FROM job_seeker_scrap WHERE job_seeker_id = #{jobSeekerId}
+    </select>
+
+    <!-- Insert query to save a new scrap -->
+    <insert id="saveScrap">
+        INSERT INTO job_seeker_scrap (scrap_id, job_seeker_id, job_post_id, created)
+        VALUES (#{scrapId}, #{jobSeekerId}, #{jobPostId}, #{created})
+    </insert>
+
+    <!-- Delete query to delete a scrap by scrap ID -->
+    <delete id="deleteScrap">
+        DELETE FROM job_seeker_scrap WHERE scrap_id = #{scrapId}
+    </delete>
+
+</mapper>
