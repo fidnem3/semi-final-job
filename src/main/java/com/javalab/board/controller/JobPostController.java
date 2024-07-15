@@ -20,7 +20,7 @@ import com.javalab.board.vo.JobSeekerVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/jobpost")
+@RequestMapping("/jobPost")
 @Slf4j
 public class JobPostController {
 
@@ -32,7 +32,7 @@ public class JobPostController {
 		log.info("JobPostController listJobPosts");
 		List<JobPostVo> jobPosts = jobPostService.getAllJobPosts();
 		model.addAttribute("jobPosts", jobPosts);
-		return "jobpost/list";
+		return "jobPost/list";
 	}
 
 	@GetMapping("/detail/{id}")
@@ -45,7 +45,7 @@ public class JobPostController {
 		// 조회수 증가
 		jobPostService.incrementHitCount(jobPostId);
 		model.addAttribute("jobPost", jobPost);
-		return "jobpost/detail";
+		return "jobPost/detail";
 	}
 
 	@GetMapping("/create")
@@ -56,7 +56,7 @@ public class JobPostController {
 			return "redirect:/login";
 		}
 		model.addAttribute("jobPost", new JobPostVo());
-		return "jobpost/form";
+		return "jobPost/form";
 	}
 
 	@PostMapping("/create")
@@ -68,7 +68,7 @@ public class JobPostController {
 		}
 		jobPost.setCompId(memberVo.getJobSeekerId()); // 기업 ID 설정
 		jobPostService.insertJobPost(jobPost);
-		return "redirect:/jobpost/list";
+		return "redirect:/jobPost/list";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -83,7 +83,7 @@ public class JobPostController {
 			return "error/403"; // 권한 없음
 		}
 		model.addAttribute("jobPost", jobPost);
-		return "jobpost/form";
+		return "jobPost/form";
 	}
 
 	@PostMapping("/update")
@@ -97,7 +97,7 @@ public class JobPostController {
 			return "error/403"; // 권한 없음
 		}
 		jobPostService.updateJobPost(jobPost);
-		return "redirect:/jobpost/list";
+		return "redirect:/jobPost/list";
 	}
 
 	@PostMapping("/delete")
@@ -112,7 +112,7 @@ public class JobPostController {
 			return "error/403"; // 권한 없음
 		}
 		jobPostService.deleteJobPost(jobPostId);
-		return "redirect:/jobpost/list";
+		return "redirect:/jobPost/list";
 	}
 
 	@PostMapping("/scrap/{id}")
@@ -124,6 +124,6 @@ public class JobPostController {
 		}
 		jobPostService.incrementHitCount(jobPostId);
 		// 여기에 스크랩 저장 로직 추가
-		return "redirect:/jobpost/detail/" + jobPostId;
+		return "redirect:/jobPost/detail/" + jobPostId;
 	}
 }
