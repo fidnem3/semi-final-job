@@ -55,7 +55,7 @@ public class LoginController {
             log.info("세션에 사용자 저장 완료 ");
             // 세션에 저장한 사용자 정보 조회
             //JobSeekerVo jobSeeker = (JobSeekerVo) session.getAttribute("jobSeekerVo");
-            return "redirect:/jobPost/list"; // 게시물 목록 페이지로 리다이렉트
+            return "redirect:/jobpost/list"; // 게시물 목록 페이지로 리다이렉트
         } else {
             //model.addAttribute("error", "아이디와 비밀번호를 확인하세요");
            redirectAttributes.addFlashAttribute("error", "아이디와 비밀번호를 확인하세요");
