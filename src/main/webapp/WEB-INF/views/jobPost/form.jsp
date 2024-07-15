@@ -10,7 +10,7 @@
 </head>
 <body>
  <h1>채용 공고 ${empty jobPost.jobPostId ? '작성' : '수정'}</h1>
-    <form action="${empty jobPost.jobPostId ? '/jobpost/create' : '/jobpost/update'}" method="post">
+    <form action="${empty jobPost.jobPostId ? '/jobPost/create' : '/jobPost/update'}" method="post">
         <c:if test="${not empty jobPost.jobPostId}">
             <input type="hidden" name="jobPostId" value="${jobPost.jobPostId}">
         </c:if>
@@ -40,6 +40,6 @@
         
         <input type="submit" value="${empty jobPost.jobPostId ? '작성' : '수정'}">
     </form>
-    <a href="/jobpost/list">목록으로</a>
+    <a href="/jobPost/list">목록으로</a>
 </body>
 </html>

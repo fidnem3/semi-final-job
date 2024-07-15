@@ -79,7 +79,7 @@ function displayJobPostings(postings) {
 }
 
 function openJobDetails(jobPostId) {
-    const url = `/jobpost/detail/${jobPostId}`;
+    const url = `/jobPost/detail/${jobPostId}`;
     window.open(url, '_blank', 'width=800,height=600');
 }
 
