@@ -1,9 +1,9 @@
 package com.javalab.board.mapper;
 
-import com.javalab.board.vo.MemberVo;
+import com.javalab.board.vo.JobSeekerVo;
 
 public interface LoginMapperInterface {
 
-	public MemberVo login(MemberVo memberVo);
+	public JobSeekerVo login(JobSeekerVo jobSeekerVo);
 
 }

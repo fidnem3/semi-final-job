@@ -2,12 +2,14 @@ package com.javalab.board.service;
 
 import com.javalab.board.vo.CompanyScrapVo;
 import com.javalab.board.mapper.CompanyScrapMapperInterface;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Mapper
 public class CompanyScrapService {
 
     @Autowired

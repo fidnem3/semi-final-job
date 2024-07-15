@@ -9,10 +9,10 @@
 <mapper namespace="com.javalab.board.mapper.LoginMapperInterface">
 
 <!-- login -->
-<select id="login" parameterType="MemberVo" resultType="MemberVo">
-	select member_id, password, name, email
-	from member
-	where member_id = #{memberId}
+<select id="login" parameterType="JobSeekerVo" resultType="JobSeekerVo">
+	select jobSeeker_id, password, name, email
+	from jobSeeker
+	where jobSeeker_id = #{jobSeekerId}
 	and password = #{password}
 </select>
 

@@ -26,17 +26,17 @@ div {
 	<h3>로그인</h3>
 	<form action="<c:url value='/login'/>" method="post">
 		<div>
-			<label for="id">아이디:</label> <input type="text" id="memberId"
-				name="memberId" value="${memberVo.memberId}">
+			<label for="id">아이디:</label> <input type="text" id="jobSeekerId"
+				name="jobSeekerId" value="${jobSeekerVo.jobSeekerId}">
 		</div>
 		<div>
 			<label for="password">비밀번호:</label> <input type="password"
-				id="password" name="password" value="${memberVo.password}">
+				id="password" name="password" value="${jobSeekerVo.password}">
 		</div>
 
 		<div class="button-group">
 			<input type="submit" value="로그인"> <input type="reset"
-				value="다시쓰기"> <a href="<c:url value='/member/create'/>">
+				value="다시쓰기"> <a href="<c:url value='/jobSeeker/create'/>">
 				<button type="button">회원가입</button>
 			</a>
 		</div>

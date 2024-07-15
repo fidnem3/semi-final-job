@@ -1,6 +1,6 @@
 package com.javalab.board.vo;
 
-import java.security.Timestamp;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +17,5 @@ public class JobSeekerScrapVo {
     private String scrapId; // 스크랩Id
     private String jobSeekerId; //유저아이디
     private String jobPostId; //채용공고ID
-    private Timestamp created; //스크랩날짜
+    private Date created; //스크랩날짜
 }
