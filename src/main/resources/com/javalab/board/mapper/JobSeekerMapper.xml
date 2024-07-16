@@ -25,7 +25,7 @@
 	<!-- 회원 정보 조회 -->
 	<select id="getJobSeeker" parameterType="String"
 		resultType="JobSeekerVo">
-		SELECT jobSeeker_id, password, name, email, point
+		SELECT name,birth, password, jobSeeker_id, email , address , tel
 		FROM jobSeeker
 		WHERE jobSeeker_id = #{jobSeekerId}
 	</select>

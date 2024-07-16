@@ -4,26 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javalab.board.mapper.ResumeMapperInterface">
     <select id="selectAllResumes" resultType="com.javalab.board.vo.ResumeVo">
-        SELECT * FROM resumes
+        SELECT * FROM RESUME
     </select>
 
     <insert id="insertResume">
-        INSERT INTO resumes (resumeId, jobSeekerId, title, content, education, experience, link, hitNo, fileName, filePath)
+        INSERT INTO RESUME (RESUME_ID, JOBSEEKER_ID, TITLE, CONTENT, EDUCATION, EXPERIENCE, LINK, HIT_NO, FILE_NAME, FILE_PATH)
         VALUES (#{resumeId}, #{jobSeekerId}, #{title}, #{content}, #{education}, #{experience}, #{link}, #{hitNo}, #{fileName}, #{filePath})
     </insert>
 
     <select id="selectResumeById" resultType="com.javalab.board.vo.ResumeVo">
-        SELECT * FROM resumes WHERE resumeId = #{resumeId}
+        SELECT * FROM RESUME WHERE RESUME_ID = #{resumeId}
     </select>
 
     <update id="updateResume">
-        UPDATE resumes
-        SET jobSeekerId = #{jobSeekerId}, title = #{title}, content = #{content}, education = #{education},
-            experience = #{experience}, link = #{link}, hitNo = #{hitNo}, fileName = #{fileName}, filePath = #{filePath}
-        WHERE resumeId = #{resumeId}
+        UPDATE RESUME
+        SET JOBSEEKER_ID = #{jobSeekerId}, TITLE = #{title}, CONTENT = #{content}, EDUCATION = #{education},
+            EXPERIENCE = #{experience}, LINK = #{link}, HIT_NO = #{hitNo}, FILE_NAME = #{fileName}, FILE_PATH = #{filePath}
+        WHERE RESUME_ID = #{resumeId}
     </update>
 
     <delete id="deleteResume">
-        DELETE FROM resumes WHERE resumeId = #{resumeId}
+        DELETE FROM RESUME WHERE RESUME_ID = #{resumeId}
     </delete>
 </mapper>
