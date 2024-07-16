@@ -18,7 +18,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public ResumeVo getResumeById(String resumeId) {
+    public ResumeVo getResumeById(int resumeId) {
         return resumeMapper.selectResumeById(resumeId);
     }
 
@@ -33,7 +33,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void deleteResume(String resumeId) {
+    public void deleteResume(int resumeId) {
         resumeMapper.deleteResume(resumeId);
     }
 }

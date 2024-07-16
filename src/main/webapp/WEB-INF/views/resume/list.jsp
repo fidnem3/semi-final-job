@@ -31,14 +31,14 @@
             <c:forEach var="resume" items="${resumes}">
                 <tr>
                     <td>${resume.resumeId}</td>
-                    <td>${resume.name}</td>
+                    <td>${jobSeekerVo.name}</td>
                     <td>${resume.title}</td>
-                    <td>${resume.email}</td>
+                    <td>${jobSeekerVo.email}</td>
                     <td>${resume.birth}</td>
-                    <td>${resume.tel}</td>
-                    <td>${resume.address}</td>
-                    <td>${resume.education}</td>
-                    <td>${resume.experience}</td>
+                    <td>${jobSeekerVo.tel}</td>
+                    <td>${jobSeekerVo.address}</td>
+                    <td>${resumeVo.education}</td>
+                    <td>${resumeVo.experience}</td>
                     <td>
                         <a href="/resumes/${resume.resumeId}" class="btn btn-info">보기</a>
                         <a href="/resumes/${resume.resumeId}/edit" class="btn btn-warning">수정</a>

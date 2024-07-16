@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface ResumeService {
     void createResume(ResumeVo resume);
-    ResumeVo getResumeById(String resumeId);
+    ResumeVo getResumeById(int resumeId);
     List<ResumeVo> getAllResumes();
     void updateResume(ResumeVo resume);
-    void deleteResume(String resumeId);
+    void deleteResume(int resumeId);
 }

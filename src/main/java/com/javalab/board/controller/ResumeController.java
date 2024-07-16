@@ -8,11 +8,13 @@ import com.javalab.board.vo.ResumeVo;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/resumes")
@@ -27,7 +29,13 @@ public class ResumeController {
     
     @GetMapping
     public String listResumes(Model model) {
+    	
+        String jobseekerId = "java";
+        
+        JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobseekerId);
+        
         List<ResumeVo> resumes = resumeService.getAllResumes();
+        model.addAttribute("jobSeekerVo", jobSeekerVo);
         model.addAttribute("resumes", resumes);
         return "resume/list";
     }
@@ -64,15 +72,16 @@ public class ResumeController {
         }
     }
 
+
     @GetMapping("/{resumeId}")
-    public String viewResume(@PathVariable String resumeId, Model model) {
+    public String viewResume(@PathVariable int resumeId, Model model) {
         ResumeVo resume = resumeService.getResumeById(resumeId);
         model.addAttribute("resume", resume);
         return "resume/view";
     }
 
     @GetMapping("/{resumeId}/edit")
-    public String editResumeForm(@PathVariable String resumeId, Model model) {
+    public String editResumeForm(@PathVariable int resumeId, Model model) {
         ResumeVo resume = resumeService.getResumeById(resumeId);
         model.addAttribute("resume", resume);
         return "resume/edit";
@@ -86,7 +95,7 @@ public class ResumeController {
     }
 
     @PostMapping("/{resumeId}/delete")
-    public String deleteResume(@PathVariable String resumeId) {
+    public String deleteResume(@PathVariable int resumeId) {
         resumeService.deleteResume(resumeId);
         return "redirect:/resumes";
     }

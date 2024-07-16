@@ -10,7 +10,10 @@
 <body>
     <h1>이력서 작성</h1>
     <div class="container">
-        <form id="resumeForm">
+    
+    
+    
+        <%-- <form id="resumeForm">
             <div class="row">
                 <div class="col-12">
                     <br>
@@ -250,7 +253,24 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form> --%>
+        
+        <form id="resumeForm">
+    <input type="text" id="jobSeekerId" name="jobSeekerId" placeholder="Job Seeker ID">
+    <input type="text" id="title" name="title" placeholder="Title">
+    <textarea id="content" name="content" placeholder="Content"></textarea>
+    <input type="text" id="education" name="education" placeholder="Education">
+    <input type="text" id="experience" name="experience" placeholder="Experience">
+    <input type="text" id="link" name="link" placeholder="Link">
+    <input type="text" id="hitNo" name="hitNo" placeholder="Hit Number">
+    <input type="text" id="fileName" name="fileName" placeholder="File Name">
+    <input type="text" id="filePath" name="filePath" placeholder="File Path">
+    <button type="button" onclick="writeResume()">Submit</button>
+</form>
+        
+        
+        
+        
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -261,7 +281,7 @@
     let resumeId;
     let jobSeekerId = '${sessionScope.jobSeekerVo.jobSeekerId}';
 
-    function writeResume() {
+/**      function writeResume() {
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
@@ -275,26 +295,90 @@
         };
 
         $.ajax({
-            type: "post",
-            url: "/resumes/write",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done((res) => {
-            if (res && res.msg) {
-                alert(res.msg);
-            } else {
-                alert("이력서 저장이 완료되었습니다.");
+            url: '/resumes/write',
+            type: 'POST',
+            contentType: 'application/json', // Content-Type 설정
+            data: JSON.stringify({
+                resumeId: $('#resumeId').val(),
+                jobSeekerId: $('#jobSeekerId').val(),
+                title: $('#title').val(),
+                content: $('#content').val(),
+                education: $('#education').val(),
+                experience: $('#experience').val(),
+                link: $('#link').val(),
+                hitNo: $('#hitNo').val(),
+                fileName: $('#fileName').val(),
+                filePath: $('#filePath').val()
+            }),
+            success: function(response) {
+                alert('Success: ' + response.msg);
+            },
+            error: function(error) {
+                alert('Error: ' + error.responseJSON.msg);
             }
-            location.href = "/resumes";
-        }).fail((err) => {
-            if (err.responseJSON && err.responseJSON.msg) {
-                alert(err.responseJSON.msg);
-            } else {
-                alert("이력서 저장 중 오류가 발생했습니다.");
+        });
+    } **/
+    
+    
+    /**
+    function writeResume() {
+        const resumeData = {
+            resumeId: 1, // 실제 데이터로 대체
+            jobSeekerId: 'java', // 실제 데이터로 대체
+            title: 'Sample Title', // 실제 데이터로 대체
+            content: 'Sample Content', // 실제 데이터로 대체
+            education: 'Sample Education', // 실제 데이터로 대체
+            experience: 'Sample Experience', // 실제 데이터로 대체
+            link: 'http://samplelink.com', // 실제 데이터로 대체
+            hitNo: 0, // 실제 데이터로 대체
+            fileName: 'samplefile.txt', // 실제 데이터로 대체
+            filePath: '/path/to/samplefile.txt' // 실제 데이터로 대체
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/resumes/write',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(resumeData),
+            success: function(response) {
+                alert(response.msg);
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + xhr.responseText);
             }
         });
     }
+    
+    **/
+    
+    function writeResume() {
+        const resumeData = {
+            jobSeekerId: $('#jobSeekerId').val(),
+            title: $('#title').val(),
+            content: $('#content').val(),
+            education: $('#education').val(),
+            experience: $('#experience').val(),
+            link: $('#link').val(),
+            hitNo: parseInt($('#hitNo').val()),
+            fileName: $('#fileName').val(),
+            filePath: $('#filePath').val()
+        };
+
+        $.ajax({
+            url: '/resumes/write',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(resumeData),
+            success: function(response) {
+                alert(response.msg);
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + xhr.responseText);
+            }
+        });
+    }
+
+
 
     function getCheckedValues(name) {
         var checkedValues = [];

@@ -6,7 +6,7 @@ import java.util.List;
 public interface ResumeMapperInterface {
     List<ResumeVo> selectAllResumes();
     void insertResume(ResumeVo resume);
-    ResumeVo selectResumeById(String resumeId);
+    ResumeVo selectResumeById(int resumeId);
     void updateResume(ResumeVo resume);
-    void deleteResume(String resumeId);
+    void deleteResume(int resumeId);
 }
