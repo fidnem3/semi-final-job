@@ -4,11 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<!-- 별명 설정
-		쿼리문에 풀경로의 도메인 클래스를 사용하기 불편해서 짧게 줄여서 사용하기 위한
-		클래스의 별칭을 정의하는 구문이다. -->
-	<typeAliases>
-		<!-- <typeAlias type="com.javalab.mybatis.vo.BoardVo" alias="BoardVo"/> -->
-	</typeAliases>
-	
-</configuration>	
+    <!-- 이 순서 중요함.settings는 properties 요소보다 뒤에 올 수 없음 -->
+    <properties>
+        <!-- 필요하다면 여기에 properties를 추가 -->
+    </properties>
+    <!-- <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings> -->
+    <typeAliases>
+        <!-- <typeAlias type="com.javalab.board.vo.BoardVo" alias="BoardVo"/> -->
+    </typeAliases>
+</configuration>

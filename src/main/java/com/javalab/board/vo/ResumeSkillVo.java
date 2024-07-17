@@ -11,9 +11,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class JobseekerSkillVo {
+public class ResumeSkillVo {
 	private int resumeSkillId; //스킬Id
 	private int resumeId; //이력서ID
-	private String jobSeekerId;
 	private String skill; //추가스킬
 }
