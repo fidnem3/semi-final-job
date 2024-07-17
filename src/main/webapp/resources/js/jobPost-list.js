@@ -67,13 +67,10 @@ function displayJobPostings(postings) {
     postings.forEach(posting => {
         const postingElement = document.createElement('div');
         postingElement.className = 'col';
-        const imageUrl = posting.jobPostId ? `/resources/image/${posting.jobPostId}.png` : '/resources/image/default.png';
+        // 이미지 URL 생성 로직 수정
+         const imageUrl = posting.filePath ? posting.filePath : '/resources/image/10.png';
         postingElement.innerHTML = `
             <div class="card shadow-sm" style="cursor: pointer;">
-                <div class="card-header d-flex justify-content-end">
-                    <button class="btn btn-sm btn-outline-primary me-2 edit-btn">수정</button>
-                    <button class="btn btn-sm btn-outline-danger delete-btn">삭제</button>
-                </div>
                 <img src="${imageUrl}" class="card-img-top" alt="${posting.title}" style="height: 225px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">${posting.title}</h5>
@@ -85,29 +82,9 @@ function displayJobPostings(postings) {
         `;
         
         const card = postingElement.querySelector('.card');
-        const editBtn = postingElement.querySelector('.edit-btn');
-        const deleteBtn = postingElement.querySelector('.delete-btn');
-        
-        if (editBtn && deleteBtn) {
-            editBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                console.log('Edit button clicked for job post ID:', posting.jobPostId);
-                // editJobPosting(posting.jobPostId);
-            });
-            
-            deleteBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                console.log('Delete button clicked for job post ID:', posting.jobPostId);
-                // deleteJobPosting(posting.jobPostId);
-            });
-        } else {
-            console.error('Edit or Delete button not found for job post ID:', posting.jobPostId);
-        }
         
         card.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('btn')) {
-                openJobDetails(posting.jobPostId);
-            }
+            openJobDetails(posting.jobPostId);
         });
         
         // 호버 효과 추가

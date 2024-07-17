@@ -1,5 +1,7 @@
 package com.javalab.board.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javalab.board.service.JobPostService;
@@ -64,7 +67,8 @@ public class JobPostController {
 
 	@PostMapping("/create")
 	public String createJobPost(@ModelAttribute("jobPost") JobPostVo jobPost, BindingResult bindingResult,
-			HttpSession session, RedirectAttributes redirectAttributes) {
+			@RequestParam("files") ArrayList<MultipartFile> files, HttpSession session,
+			RedirectAttributes redirectAttributes) {
 		log.info("JobPostController createJobPost - Received jobPost: {}", jobPost);
 
 		JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
@@ -85,6 +89,31 @@ public class JobPostController {
 		}
 
 		try {
+			// 파일 업로드 처리
+			String uploadDir = "c:\\filetest\\upload\\";
+			for (MultipartFile file : files) {
+				if (!file.isEmpty()) {
+					try {
+						String originalFileName = file.getOriginalFilename();
+						String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
+						log.info("업로드 파일명 : " + uniqueFileName);
+						File dest = new File(uploadDir + uniqueFileName);
+						file.transferTo(dest);
+
+						// JobPostVo에 파일 정보 설정
+						jobPost.setFileName(originalFileName);
+						jobPost.setFilePath("/uploads/" + uniqueFileName);
+
+						// 첫 번째 파일만 처리하고 루프 종료
+						break;
+					} catch (Exception e) {
+						log.error("파일 업로드 실패", e);
+						redirectAttributes.addFlashAttribute("error", "파일 업로드 중 오류가 발생했습니다: " + e.getMessage());
+						return "jobPost/form";
+					}
+				}
+			}
+
 			jobPost.setCompId(jobPost.getCompId());
 			jobPost.setScrapCount(0);
 			jobPostService.createJobPost(jobPost);
@@ -143,21 +172,21 @@ public class JobPostController {
 
 	@GetMapping("/scrapList")
 	public String scrapList(Model model, HttpSession session) {
-	    // 세션에서 로그인한 사용자의 아이디를 가져옵니다.
-	    String jobSeekerId = ((JobSeekerVo) session.getAttribute("jobSeekerVo")).getJobSeekerId();
+		// 세션에서 로그인한 사용자의 아이디를 가져옵니다.
+		String jobSeekerId = ((JobSeekerVo) session.getAttribute("jobSeekerVo")).getJobSeekerId();
 
-	    // 사용자의 아이디를 기반으로 스크랩 목록을 조회합니다.
-	    List<JobPostVo> scrapList = jobPostService.getScrapList(jobSeekerId);
+		// 사용자의 아이디를 기반으로 스크랩 목록을 조회합니다.
+		List<JobPostVo> scrapList = jobPostService.getScrapList(jobSeekerId);
 
-	    // 각 게시물의 제목 데이터를 설정하여 JobPostVo 객체에 저장합니다.
-	    for (JobPostVo jobPost : scrapList) {
-	        String title = jobPostService.getJobPostTitleByJobPostId(jobPost.getJobPostId());
-	        jobPost.setTitle(title); // JobPostVo 객체에 제목 설정
-	    }
+		// 각 게시물의 제목 데이터를 설정하여 JobPostVo 객체에 저장합니다.
+		for (JobPostVo jobPost : scrapList) {
+			String title = jobPostService.getJobPostTitleByJobPostId(jobPost.getJobPostId());
+			jobPost.setTitle(title); // JobPostVo 객체에 제목 설정
+		}
 
-	    // 모델에 스크랩 목록을 추가하여 JSP로 전달합니다.
-	    model.addAttribute("scrapList", scrapList);
+		// 모델에 스크랩 목록을 추가하여 JSP로 전달합니다.
+		model.addAttribute("scrapList", scrapList);
 
-	    return "board/scrapList"; // scrapList.jsp로 포워딩
+		return "board/scrapList"; // scrapList.jsp로 포워딩
 	}
 }

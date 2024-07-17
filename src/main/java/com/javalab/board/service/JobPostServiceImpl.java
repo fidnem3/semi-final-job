@@ -88,14 +88,20 @@ public class JobPostServiceImpl implements JobPostService {
 	 * @return 필터링된 채용 공고 목록
 	 */
 	@Override
-    public List<JobPostVo> getScrapList(String jobSeekerId) {
-        return jobPostMapper.getScrapList(jobSeekerId);
-    }
-    
-    @Override
-    public String getJobPostTitleByJobPostId(int jobPostId) {
-        return jobPostMapper.getJobPostTitleByJobPostId(jobPostId);
-    }
+	public List<JobPostVo> getFilteredJobPosts(Map<String, Object> filters) {
+		log.info("다음 조건으로 채용 공고를 필터링합니다: {}", filters);
+		return jobPostMapper.getFilteredJobPosts(filters);
+	}
+
+	@Override
+	public List<JobPostVo> getScrapList(String jobSeekerId) {
+		return jobPostMapper.getScrapList(jobSeekerId);
+	}
+
+	@Override
+	public String getJobPostTitleByJobPostId(int jobPostId) {
+		return jobPostMapper.getJobPostTitleByJobPostId(jobPostId);
+	}
 
 	/**
 	 * 특정 채용 공고의 조회수를 증가시킵니다.

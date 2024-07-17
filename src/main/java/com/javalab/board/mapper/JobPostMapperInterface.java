@@ -68,6 +68,9 @@ public interface JobPostMapperInterface {
 	 * @param filters 필터링 조건을 담은 Map (예: 지역, 경력, 학력 등)
 	 * @return 필터링된 채용 공고 목록
 	 */
+	List<JobPostVo> getFilteredJobPosts(Map<String, Object> filters);
+	
+	
 	List<JobPostVo> getScrapList(String jobSeekerId);
 	
 	

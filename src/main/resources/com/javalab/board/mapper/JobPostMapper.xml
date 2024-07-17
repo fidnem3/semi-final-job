@@ -3,30 +3,30 @@
 
 <mapper
 	namespace="com.javalab.board.mapper.JobPostMapperInterface">
-<!-- 모든 채용 공고 조회 -->
-<select id="getAllJobPosts"
-	resultType="com.javalab.board.vo.JobPostVo">
-	SELECT * FROM jobPost
-</select>
+	<!-- 모든 채용 공고 조회 -->
+	<select id="getAllJobPosts"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT * FROM jobPost
+	</select>
 
 
 
 
-<!-- 특정 ID의 채용 공고 조회 -->
-<select id="getJobPostById" parameterType="string"
-	resultType="com.javalab.board.vo.JobPostVo">
-	SELECT * FROM jobPost WHERE jobPost_id = #{jobPostId}
-</select>
+	<!-- 특정 ID의 채용 공고 조회 -->
+	<select id="getJobPostById" parameterType="string"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT * FROM jobPost WHERE jobPost_id = #{jobPostId}
+	</select>
 
 
-<select id="getJobPostDetail" parameterType="string"
-	resultType="com.javalab.board.vo.JobPostVo">
-	SELECT * FROM jobPost WHERE jobPost_id = #{jobPostId}
-</select>
+	<select id="getJobPostDetail" parameterType="string"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT * FROM jobPost WHERE jobPost_id = #{jobPostId}
+	</select>
 
-<!-- 새로운 채용 공고 등록 -->
-<insert id="createJobPost"
-	parameterType="com.javalab.board.vo.JobPostVo">
+	<!-- 새로운 채용 공고 등록 -->
+	<insert id="createJobPost"
+		parameterType="com.javalab.board.vo.JobPostVo">
     <![CDATA[
         INSERT INTO JobPost (
             jobpost_id,
@@ -60,66 +60,68 @@
             NVL(TO_DATE(#{created, jdbcType=DATE}, 'YYYY-MM-DD'), SYSDATE)
         )
     ]]>
-</insert>
-<!-- 채용 공고 정보 수정 -->
-<!-- <update id="updateJobPost" parameterType="com.javalab.board.vo.JobPostVo"> 
-	UPDATE jobPost SET title = #{title}, content = #{content}, salary = #{salary}, 
-	position = #{position}, experience = #{experience}, education = #{education}, 
-	address = #{address}, end_date = #{endDate}, homepage = #{homePage} WHERE 
-	jobPost_id = #{jobPostId} </update> -->
-<update id="updateJobPost"
-	parameterType="com.javalab.board.vo.JobPostVo">
-	UPDATE jobPost
-	<set>
-		<if test="title != null">title = #{title},</if>
-		<if test="content != null">content = #{content},</if>
-		<if test="salary != null">salary = #{salary},</if>
-		<if test="position != null">position = #{position},</if>
-		<if test="experience != null">experience = #{experience},</if>
-		<if test="education != null">education = #{education},</if>
-		<if test="address != null">address = #{address},</if>
-		<if test="endDate != null">end_date = #{endDate},</if>
-		<if test="homePage != null">homepage = #{homePage},</if>
-	</set>
-	WHERE jobPost_id = #{jobPostId}
-</update>
+	</insert>
+	<!-- 채용 공고 정보 수정 -->
+	<!-- <update id="updateJobPost" parameterType="com.javalab.board.vo.JobPostVo"> 
+		UPDATE jobPost SET title = #{title}, content = #{content}, salary = #{salary}, 
+		position = #{position}, experience = #{experience}, education = #{education}, 
+		address = #{address}, end_date = #{endDate}, homepage = #{homePage} WHERE 
+		jobPost_id = #{jobPostId} </update> -->
+	<update id="updateJobPost"
+		parameterType="com.javalab.board.vo.JobPostVo">
+		UPDATE jobPost
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="salary != null">salary = #{salary},</if>
+			<if test="position != null">position = #{position},</if>
+			<if test="experience != null">experience = #{experience},</if>
+			<if test="education != null">education = #{education},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="endDate != null">end_date = #{endDate},</if>
+			<if test="homePage != null">homepage = #{homePage},</if>
+		</set>
+		WHERE jobPost_id = #{jobPostId}
+	</update>
 
-<!-- 채용 공고 삭제 -->
-<delete id="deleteJobPost" parameterType="string">
-	DELETE FROM jobPost
-	WHERE jobPost_id = #{jobPostId}
-</delete>
+	<!-- 채용 공고 삭제 -->
+	<delete id="deleteJobPost" parameterType="string">
+		DELETE FROM jobPost
+		WHERE jobPost_id = #{jobPostId}
+	</delete>
 
-<!-- 필터링된 채용 공고 조회 -->
-<select id="getFilteredJobPosts" parameterType="map"
-	resultType="com.javalab.board.vo.JobPostVo">
-	SELECT * FROM jobPost
-	WHERE 1=1
-	<if test="position != null and position != ''">
-		AND position LIKE '%' || #{position} || '%'
-	</if>
-	<if test="experience != null and experience != ''">
-		AND experience LIKE '%' || #{experience} || '%'
-	</if>
-	<if test="education != null and education != ''">
-		AND education LIKE '%' || #{education} || '%'
-	</if>
-</select>
+	<!-- 필터링된 채용 공고 조회 -->
+	<select id="getFilteredJobPosts" parameterType="map"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT * FROM jobPost
+		WHERE 1=1
+		<if test="position != null and position != ''">
+			AND position LIKE '%' || #{position} || '%'
+		</if>
+		<if test="experience != null and experience != ''">
+			AND experience LIKE '%' || #{experience} || '%'
+		</if>
+		<if test="education != null and education != ''">
+			AND education LIKE '%' || #{education} || '%'
+		</if>
+	</select>
 
-<!-- 조회수 증가 -->
-<update id="incrementHitCount" parameterType="string">
-	UPDATE jobPost
-	SET
-	hit_no = hit_no + 1
-	WHERE jobPost_id = #{jobPostId}
-</update>
+	<!-- 조회수 증가 -->
+	<update id="incrementHitCount" parameterType="string">
+		UPDATE jobPost
+		SET
+		hit_no = hit_no + 1
+		WHERE jobPost_id = #{jobPostId}
+	</update>
 
-<select id="getScrapList" parameterType="string" resultType="com.javalab.board.vo.JobPostVo">
-    SELECT j.jobPost_id, j.title, j.created, k.jobSeeker_id
-    FROM jobSeeker_scrap s
-    JOIN jobPost j ON j.jobPost_id = j.jobPost_id
-    JOIN jobSeeker k ON k.jobSeeker_id = k.jobSeeker_id
-    WHERE s.jobSeeker_id = #{jobSeekerId}
-</select>
+
+	<select id="getScrapList" parameterType="string"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT j.jobPost_id, j.title, j.created, k.jobSeeker_id
+		FROM jobSeeker_scrap s
+		JOIN jobPost j ON j.jobPost_id = j.jobPost_id
+		JOIN jobSeeker k ON k.jobSeeker_id = k.jobSeeker_id
+		WHERE s.jobSeeker_id = #{jobSeekerId}
+	</select>
 
 </mapper>

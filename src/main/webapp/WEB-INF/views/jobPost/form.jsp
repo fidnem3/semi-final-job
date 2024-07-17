@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +10,7 @@
 <body>
 	<h1>채용 공고 작성</h1>
 
-	<form:form action="/jobPost/create" method="post"
-		modelAttribute="jobPost">
+	<form:form action="/jobPost/create" method="post" modelAttribute="jobPost" enctype="multipart/form-data">
 		<div>
 			<label for="compId">회사Id</label>
 			<form:input path="compId" required="required" />
@@ -51,6 +50,10 @@
 		<div>
 			<label for="endDate">마감일:</label> <input type="date" name="endDate"
 				id="endDate" value="${jobPost.endDate}">
+		</div>
+		<div>
+			 <label for="files">이미지 첨부1:</label> 
+            <input type="file" name="files" multiple>
 		</div>
 		<div>
 			<input type="submit" value="등록">

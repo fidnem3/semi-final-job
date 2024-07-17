@@ -4,96 +4,92 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
 	<!-- 서비스, 리포지토리 레이어에서 사용할 빈들을 스캔하는 설정 -->
 	<!-- 다음 base-package에 있는 클래스들을 빈으로 생성 -->
-    <context:component-scan base-package="com.javalab.board.service"></context:component-scan>
-	<context:component-scan base-package="com.javalab.board.mapper"></context:component-scan>	
-	
+	<context:component-scan
+		base-package="com.javalab.board.service"></context:component-scan>
+	<context:component-scan
+		base-package="com.javalab.board.mapper"></context:component-scan>
+
 	<!-- 매퍼 인터페이스의 위치를 지정하는 설정 -->
-	<mybatis-spring:scan base-package="com.javalab.board.mapper"/>
-	
-	<!-- property-placeholder
-		1. 외부에 설정되어 있는 데이터베이스 계정과
-		2. JDBC 드라이버 로딩 문자열
+	<mybatis-spring:scan
+		base-package="com.javalab.board.mapper" />
+
+	<!-- property-placeholder 1. 외부에 설정되어 있는 데이터베이스 계정과 2. JDBC 드라이버 로딩 문자열 
 		3. DB 연결 문자열등이 저장된 파일을 읽어온다. -->
-	<context:property-placeholder location="classpath:config/database.properties" />
-	
-	<!-- HikariCP 설정
-		 HikariConfig : HikariCP 설정을 위한 클래스로 오라클 DB에 접속하기 위한 정보를
-		 설정한다. pom.xml에 설정한 의존성이 설정되어 있음 -->	
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean>	
-	<!-- HikariCP DataSource 설정
-		 HikariDataSource : sql.DataSource 인터페이스의 자식으로 커넥션 풀을 
-		 생성하는 클래스이다. pom.xml에 설정한 의존성이 설정되어 있음. -->
-    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg ref="hikariConfig" />
-    </bean>
-	
-	<!-- SqlSessionFactory 설정[공장 : SqlSession 생성하는 공장]
-		org.mybatis.spring.SqlSessionFactoryBean 클래스는 MyBatis와 Spring Framework을 
-		통합하기 위해 사용됨. SqlSessionFactoryBean은 MyBatis의 SqlSessionFactory 
-		인스턴스를 생성하고 구성하는 데 사용됨.
-		SqlSessionFactoryBean : dataSource를 주입받으며 Spring이 MyBatis의 SqlSessionFactory를 
-        생성하고 관리할 수 있도록 도와줍니다. 이는 Spring의 빈으로 등록되어 MyBatis 매퍼 인터페이스와 
-        매퍼 XML 파일을 연결함. 다른 빈들과 마찬가지로 한개만 생성됨. 다음과 같은 설정이 동반됨. 
-        1. DataSource 설정: SqlSessionFactoryBean은 데이터베이스에 연결할 DataSource를 설정.
-		2. MyBatis 설정 파일: MyBatis 설정 파일의 위치를 지정하여 MyBatis의 동작을 구성.
-		3. 매퍼 XML 파일: MyBatis 매퍼 XML 파일의 위치를 지정하여 매퍼 인터페이스와 XML 매퍼 파일을 연결.
-		4. 별칭 설정: MyBatis의 type aliases를 설정하여 클래스의 경로를 짧게 사용할 수 있게함.
-        -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<context:property-placeholder
+		location="classpath:config/database.properties" />
+
+	<!-- HikariCP 설정 HikariConfig : HikariCP 설정을 위한 클래스로 오라클 DB에 접속하기 위한 정보를 
+		설정한다. pom.xml에 설정한 의존성이 설정되어 있음 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- HikariCP DataSource 설정 HikariDataSource : sql.DataSource 인터페이스의 자식으로 
+		커넥션 풀을 생성하는 클래스이다. pom.xml에 설정한 의존성이 설정되어 있음. -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- SqlSessionFactory 설정[공장 : SqlSession 생성하는 공장] org.mybatis.spring.SqlSessionFactoryBean 
+		클래스는 MyBatis와 Spring Framework을 통합하기 위해 사용됨. SqlSessionFactoryBean은 MyBatis의 
+		SqlSessionFactory 인스턴스를 생성하고 구성하는 데 사용됨. SqlSessionFactoryBean : dataSource를 
+		주입받으며 Spring이 MyBatis의 SqlSessionFactory를 생성하고 관리할 수 있도록 도와줍니다. 이는 Spring의 
+		빈으로 등록되어 MyBatis 매퍼 인터페이스와 매퍼 XML 파일을 연결함. 다른 빈들과 마찬가지로 한개만 생성됨. 다음과 같은 설정이 
+		동반됨. 1. DataSource 설정: SqlSessionFactoryBean은 데이터베이스에 연결할 DataSource를 설정. 
+		2. MyBatis 설정 파일: MyBatis 설정 파일의 위치를 지정하여 MyBatis의 동작을 구성. 3. 매퍼 XML 파일: 
+		MyBatis 매퍼 XML 파일의 위치를 지정하여 매퍼 인터페이스와 XML 매퍼 파일을 연결. 4. 별칭 설정: MyBatis의 type 
+		aliases를 설정하여 클래스의 경로를 짧게 사용할 수 있게함. -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 속성으로 DataSource가 필요함. -->
 		<property name="dataSource" ref="dataSource"></property>
-		
+
 		<!-- 별명파일(Alias) - typeAliasesPackage 선언으로 대신해서 주석처리 -->
-		<!-- <property name="configLocation" value="classpath:/config/sqlMapConfig.xml" /> -->
-		
+		<!-- <property name="configLocation" value="classpath:/config/sqlMapConfig.xml" 
+			/> -->
+
 		<!-- 매퍼 xml(쿼리문 모아놓은 파일) -->
-		<!-- mapperLocations : 쿼리문을 모아놓은 매퍼xml의 위치를 알려주는 역할.	 
-			classpath: src/main/resources 폴더를 가리킨다. 
-			*Mapper.xml : 와일드 카드, 무슨무슨~Mapper.xml로 끝나는 파일은 모두 매퍼XML로 스캔한다. 
+		<!-- mapperLocations : 쿼리문을 모아놓은 매퍼xml의 위치를 알려주는 역할. classpath: src/main/resources 
+			폴더를 가리킨다. *Mapper.xml : 와일드 카드, 무슨무슨~Mapper.xml로 끝나는 파일은 모두 매퍼XML로 스캔한다. 
 			classpath:* : *를 붙이면 여러 패키지에서 매퍼를 검색한다. -->
-		<property name="mapperLocations" 
-					value="classpath*:/com/javalab/board/mapper/*Mapper.xml" />
-					
-		<!-- 매퍼XML에서 사용할 vo 설정
-			원래는 sqlMapConfig.xml에서 별칭을 만들고 그 별칭을 쿼리문에서
-			사용한다. 하지만 다음과 같이 typeAliasesPackage 속성을 주게 되면
-			그 경로에 있는 vo 클래스들은 자동으로 클래스 이름만으로 쿼리문에서 사용가능. -->					
-		<property name="typeAliasesPackage" value="com.javalab.board.vo" />
-		
-		<!-- mapUnderscoreToCamelCase 설정 
-			 ex) 데이터베이스 조회결과 member_id -> 도메인 객체의 memberId 속성으로 자동변환 --> 
+		<property name="mapperLocations"
+			value="classpath*:/com/javalab/board/mapper/*Mapper.xml" />
+
+		<!-- 매퍼XML에서 사용할 vo 설정 원래는 sqlMapConfig.xml에서 별칭을 만들고 그 별칭을 쿼리문에서 사용한다. 
+			하지만 다음과 같이 typeAliasesPackage 속성을 주게 되면 그 경로에 있는 vo 클래스들은 자동으로 클래스 이름만으로 
+			쿼리문에서 사용가능. -->
+		<property name="typeAliasesPackage"
+			value="com.javalab.board.vo" />
+
+		<!-- mapUnderscoreToCamelCase 설정 ex) 데이터베이스 조회결과 member_id -> 도메인 객체의 memberID 
+			속성으로 자동변환 -->
 		<property name="configuration">
 			<bean class="org.apache.ibatis.session.Configuration">
 				<property name="mapUnderscoreToCamelCase" value="true"></property>
 			</bean>
 		</property>
-				
+
 	</bean>
-	
-	<!-- SqlSessionTemplate 생성을 위한 설정
-		SqlSessionTemplate는 스프링 애플리케이션에서 SqlSession을 관리하기 위한 템플릿 클래스. 
-		일반적으로 싱글톤 패턴으로 관리되어 애플리케이션 전체에서 공유된다. 위의 SqlSessionFactory에서
-		만들어진 sqlSession 객체를 효율적으로 관리하고 닫기 위한 작업을 자동으로 처리하는 역할을 한다. 
-		SqlSession을 직접 사용할 수도 있지만 sqlSessionTemplate을 사용하면 여러가지 이점이 있다.
-		
-		1) 자동 트랜잭션 처리 2) 자동으로 SqlSession 열고 닫아준다.
-		3) 멀티 스레드 환경에서 안전하게 사용할 수 있다. 
-		4) 마이바티스 예외를 Spring의 데이터접근 예외로 변환하여 처리할 수 있다.
-	-->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+
+	<!-- SqlSessionTemplate 생성을 위한 설정 SqlSessionTemplate는 스프링 애플리케이션에서 SqlSession을 
+		관리하기 위한 템플릿 클래스. 일반적으로 싱글톤 패턴으로 관리되어 애플리케이션 전체에서 공유된다. 위의 SqlSessionFactory에서 
+		만들어진 sqlSession 객체를 효율적으로 관리하고 닫기 위한 작업을 자동으로 처리하는 역할을 한다. SqlSession을 직접 
+		사용할 수도 있지만 sqlSessionTemplate을 사용하면 여러가지 이점이 있다. 1) 자동 트랜잭션 처리 2) 자동으로 SqlSession 
+		열고 닫아준다. 3) 멀티 스레드 환경에서 안전하게 사용할 수 있다. 4) 마이바티스 예외를 Spring의 데이터접근 예외로 변환하여 
+		처리할 수 있다. -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
-	
+
 </beans>
