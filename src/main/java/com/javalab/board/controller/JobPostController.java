@@ -1,6 +1,8 @@
 package com.javalab.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,7 +45,7 @@ public class JobPostController {
 		if (jobPost == null) {
 			return "error/404";
 		}
-		// 조회수 증가
+
 		jobPostService.incrementHitCount(jobPostId);
 		model.addAttribute("jobPost", jobPost);
 		return "jobPost/detail";
@@ -51,8 +54,8 @@ public class JobPostController {
 	@GetMapping("/create")
 	public String createJobPostForm(HttpSession session, Model model) {
 		log.info("JobPostController createJobPostForm");
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
+		JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
+		if (jobSeekerVo == null) {
 			return "redirect:/login";
 		}
 		model.addAttribute("jobPost", new JobPostVo());
@@ -60,15 +63,38 @@ public class JobPostController {
 	}
 
 	@PostMapping("/create")
-	public String createJobPost(@ModelAttribute("jobPost") JobPostVo jobPost, HttpSession session) {
-		log.info("JobPostController createJobPost");
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
+	public String createJobPost(@ModelAttribute("jobPost") JobPostVo jobPost, BindingResult bindingResult,
+			HttpSession session, RedirectAttributes redirectAttributes) {
+		log.info("JobPostController createJobPost - Received jobPost: {}", jobPost);
+
+		JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
+		if (jobSeekerVo == null) {
+			log.error("JobSeekerVo not found in session");
 			return "redirect:/login";
 		}
-		jobPost.setCompId(memberVo.getJobSeekerId()); // 기업 ID 설정
-		jobPostService.insertJobPost(jobPost);
-		return "redirect:/jobPost/list";
+
+		if (bindingResult.hasErrors()) {
+			log.error("Validation errors: {}", bindingResult.getAllErrors());
+			return "jobPost/form";
+		}
+
+		// 날짜가 null인 경우 처리
+		if (jobPost.getEndDate() == null) {
+			bindingResult.rejectValue("endDate", "error.endDate", "마감일은 필수입니다.");
+			return "jobPost/form";
+		}
+
+		try {
+			jobPost.setCompId(jobPost.getCompId());
+			jobPost.setScrapCount(0);
+			jobPostService.createJobPost(jobPost);
+			redirectAttributes.addFlashAttribute("message", "채용 공고가 성공적으로 등록되었습니다.");
+			return "redirect:/jobPost/list";
+		} catch (Exception e) {
+			log.error("Error creating job post", e);
+			redirectAttributes.addFlashAttribute("error", "채용 공고 등록 중 오류가 발생했습니다: " + e.getMessage());
+			return "jobPost/form";
+		}
 	}
 
 	@GetMapping("/edit/{id}")
@@ -80,7 +106,7 @@ public class JobPostController {
 		}
 		JobPostVo jobPost = jobPostService.getJobPostById(jobPostId);
 		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/403"; // 권한 없음
+			return "error/404"; // 권한 없음
 		}
 		model.addAttribute("jobPost", jobPost);
 		return "jobPost/form";
@@ -94,7 +120,7 @@ public class JobPostController {
 			return "redirect:/login";
 		}
 		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/403"; // 권한 없음
+			return "error/404"; // 권한 없음
 		}
 		jobPostService.updateJobPost(jobPost);
 		return "redirect:/jobPost/list";
@@ -109,7 +135,7 @@ public class JobPostController {
 		}
 		JobPostVo jobPost = jobPostService.getJobPostById(jobPostId);
 		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/403"; // 권한 없음
+			return "error/404"; // 권한 없음
 		}
 		jobPostService.deleteJobPost(jobPostId);
 		return "redirect:/jobPost/list";

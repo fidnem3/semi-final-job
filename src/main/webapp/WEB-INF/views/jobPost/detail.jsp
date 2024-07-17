@@ -35,9 +35,6 @@
 		<p>
 			<strong>마감일:</strong> ${jobPost.endDate}
 		</p>
-		<p>
-			<strong>조회수:</strong> ${jobPost.hitNO}
-		</p>
 
 		<button onclick="window.close()">창 닫기</button>
 	</div>
