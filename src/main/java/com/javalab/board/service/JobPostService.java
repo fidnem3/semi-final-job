@@ -72,7 +72,9 @@ public interface JobPostService {
 	 * @param filters 필터링 조건을 담은 Map (예: 지역, 경력, 학력 등)
 	 * @return 필터링된 채용 공고 목록
 	 */
-	List<JobPostVo> getFilteredJobPosts(Map<String, Object> filters);
+public List<JobPostVo> getScrapList(String jobSeekerId);
+	
+	public String getJobPostTitleByJobPostId(int jobPostId);
 
 	/**
 	 * 특정 채용 공고의 조회수를 증가시킵니다.

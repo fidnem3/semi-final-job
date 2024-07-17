@@ -141,15 +141,23 @@ public class JobPostController {
 		return "redirect:/jobPost/list";
 	}
 
-	@PostMapping("/scrap/{id}")
-	public String scrapJobPost(@PathVariable("id") String jobPostId, HttpSession session) {
-		log.info("JobPostController scrapJobPost: id = {}", jobPostId);
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
-			return "redirect:/login";
-		}
-		jobPostService.incrementHitCount(jobPostId);
-		// 여기에 스크랩 저장 로직 추가
-		return "redirect:/jobPost/detail/" + jobPostId;
+	@GetMapping("/scrapList")
+	public String scrapList(Model model, HttpSession session) {
+	    // 세션에서 로그인한 사용자의 아이디를 가져옵니다.
+	    String jobSeekerId = ((JobSeekerVo) session.getAttribute("jobSeekerVo")).getJobSeekerId();
+
+	    // 사용자의 아이디를 기반으로 스크랩 목록을 조회합니다.
+	    List<JobPostVo> scrapList = jobPostService.getScrapList(jobSeekerId);
+
+	    // 각 게시물의 제목 데이터를 설정하여 JobPostVo 객체에 저장합니다.
+	    for (JobPostVo jobPost : scrapList) {
+	        String title = jobPostService.getJobPostTitleByJobPostId(jobPost.getJobPostId());
+	        jobPost.setTitle(title); // JobPostVo 객체에 제목 설정
+	    }
+
+	    // 모델에 스크랩 목록을 추가하여 JSP로 전달합니다.
+	    model.addAttribute("scrapList", scrapList);
+
+	    return "board/scrapList"; // scrapList.jsp로 포워딩
 	}
 }
