@@ -285,7 +285,7 @@
 				<div class="col-lg-6 col-md-8 mx-auto">
 					<h1 class="fw-light">채용 공고 목록</h1>
 					<p class="lead text-body-secondary">다양한 기업의 채용 기회를 확인하세요. 여러분의
-						경력을 한 단계 발전시킬 수 있는 기회가 기다리고 있습니다.</p>
+						경력을 한 단계 발전시킬 수 있는 기회가 기다리고 있습니다eeeeeee.</p>
 					<p>
 						<a href="/jobPost/create" class="btn btn-primary my-2">채용 공고 등록</a>	
 					</p>
