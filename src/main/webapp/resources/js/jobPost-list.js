@@ -74,20 +74,27 @@ function displayJobPostings(postings) {
           console.log('filePath:', posting.filePath);
          const imageUrl = posting.fileName && posting.filePath ? `/uploads/${posting.fileName}` : '/resources/image/10.png';
          console.log('imageUrl:', imageUrl);
-         postingElement.innerHTML = `
-            <div class="card shadow-sm" style="cursor: pointer;">
+          postingElement.innerHTML = `
+            <div class="card shadow-sm" style="cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
                 <img src="${imageUrl}" class="card-img-top" alt="${posting.title}" 
-     style="height: 225px; object-fit: cover;"
-     onerror="this.onerror=null; this.src='/resources/image/10.png'; console.error('Image load failed:', this.src);">
-                <div class="card-body">
-                    <h5 class="card-title">${posting.title}</h5>
-                    <p class="card-text"><strong>경력:</strong> ${posting.experience}</p>
-                    <p class="card-text"><strong>직업:</strong> ${posting.job}</p>
-                    <p class="card-text"><strong>지역:</strong> ${posting.location}</p>
-                    <p class="card-text"><strong>기능:</strong> ${posting.function}</p>
+                     style="height: 200px; object-fit: cover;"
+                     onerror="this.onerror=null; this.src='/resources/image/10.png'; console.error('Image load failed:', this.src);">
+                <div class="card-body" style="padding: 20px; background-color: #ffffff;">
+                    <h5 class="card-title" style="font-size: 1.3rem; font-weight: 600; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">${posting.title}</h5>
+                    <div style="display: grid; grid-template-columns: auto 1fr; gap: 10px; font-size: 0.95rem; color: #34495e;">
+                        <span style="font-weight: 600; color: #3498db;">경력:</span>
+                        <span>${posting.experience}</span>
+                        <span style="font-weight: 600; color: #3498db;">직업:</span>
+                        <span>${posting.job}</span>
+                        <span style="font-weight: 600; color: #3498db;">지역:</span>
+                        <span>${posting.location}</span>
+                        <span style="font-weight: 600; color: #3498db;">기능:</span>
+                        <span>${posting.function}</span>
+                    </div>
                 </div>
             </div>
         `;
+        
         	
         const card = postingElement.querySelector('.card');
         
@@ -98,10 +105,14 @@ function displayJobPostings(postings) {
         // 호버 효과 추가
         card.addEventListener('mouseenter', function() {
             this.classList.add('hover-effect');
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 8px 15px rgba(0,0,0,0.1)';
         });
 
         card.addEventListener('mouseleave', function() {
             this.classList.remove('hover-effect');
+     		this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
         }); 
         
         container.appendChild(postingElement);

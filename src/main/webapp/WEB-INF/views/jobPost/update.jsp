@@ -42,8 +42,8 @@
 			<form:input path="experience" required="required" />
 		</div>
 		<div>
-			<form:label path="address">지역</form:label>
-			<form:input path="address" required="required" />
+			<form:label path="location">지역</form:label>
+			<form:input path="location" required="required" />
 		</div>
 
 		<div>

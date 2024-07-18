@@ -10,26 +10,82 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${jobPost.title}- 채용 상세</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 <style>
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	color: #333;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 20px;
+}
+
+.job-detail-container {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	color: #2c3e50;
+	border-bottom: 2px solid #3498db;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.job-info {
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.job-info strong {
+	color: #3498db;
+}
+
 .button-container {
 	display: flex;
 	gap: 10px;
+	margin-top: 20px;
 }
 
 button, input[type="submit"] {
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
 	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
-.my-cursor {
+button {
+	background-color: #3498db;
+	color: white;
+}
+
+button:hover {
+	background-color: #2980b9;
+}
+
+.scrap-button {
+	font-size: 24px;
+	color: #f39c12;
 	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.scrap-button:hover {
+	color: #f1c40f;
 }
 
 .on-Clicked {
-	color: gold;
+	color: #f1c40f;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -37,66 +93,47 @@ button, input[type="submit"] {
 <body>
 	<div class="job-detail-container">
 		<h1>${jobPost.title}</h1>
-		<p>
-			<strong>회사:</strong> ${jobPost.compId}
-		</p>
-		<p>
-			<strong>내용:</strong> ${jobPost.content}
-		</p>
-		<p>
-			<strong>직위:</strong> ${jobPost.position}
-		</p>
-		<p>
-			<strong>연봉:</strong> ${jobPost.salary}
-		</p>
-		<p>
-			<strong>경력:</strong> ${jobPost.experience}
-		</p>
-		<p>
-			<strong>지역:</strong> ${jobPost.address}
-		</p>
-		<p>
-			<strong>학력:</strong> ${jobPost.education}
-		</p>
-		<p>
-			<strong>주소:</strong> ${jobPost.address}
-		</p>
-		<p>
-			<strong>마감일:</strong> ${jobPost.endDate}
-		</p>
+		<div class="job-info">
+			<strong>회사:</strong> <span>${jobPost.compId}</span> <strong>내용:</strong>
+			<span>${jobPost.content}</span> <strong>직위:</strong> <span>${jobPost.position}</span>
+			<strong>연봉:</strong> <span>${jobPost.salary}</span> <strong>경력:</strong>
+			<span>${jobPost.experience}</span> <strong>지역:</strong> <span>${jobPost.location}</span>
+			<strong>학력:</strong> <span>${jobPost.education}</span> <strong>기업주소:</strong>
+			<span>${jobPost.address}</span> <strong>마감일:</strong> <span>${jobPost.endDate}</span>
+		</div>
 
-		<button onclick="window.close()">창 닫기</button>
-		<c:if test="${sessionScope.JobSeekerVo.jobSeekerId == JobPost.compId}">
-			<button onclick="editJobPost(${jobPost.jobPostId})">수정</button>
-			<button onclick="confirmDelete(${jobPost.jobPostId})">삭제</button>
-		</c:if>
-	</div>
-	<!-- 스크랩 버튼 -->
-	<div id="scrapButton">
-		<c:choose>
-			<c:when test="${not empty sessionScope.jobSeekerVo}">
-				<!-- 세션에 로그인 정보가 있는 경우 -->
+		<div class="button-container">
+			<button onclick="window.close()">창 닫기</button>
+			<c:if
+				test="${sessionScope.JobSeekerVo.jobSeekerId == JobPost.compId}">
+				<button onclick="editJobPost(${jobPost.jobPostId})">수정</button>
+				<button onclick="confirmDelete(${jobPost.jobPostId})">삭제</button>
+			</c:if>
+			<div id="scrapButton" class="scrap-button">
 				<c:choose>
-					<c:when test="${jobSeekerScrapVo.scrapId > 0}">
-						<i id="scrapIcon" class="fa-solid on-Clicked fa-star my-cursor"
-							onclick="toggleScrap('${jobPostVo.jobPostId}', '${jobSeekerScrapVo.scrapId}')"></i>
+					<c:when test="${not empty sessionScope.jobSeekerVo}">
+						<c:choose>
+							<c:when test="${jobSeekerScrapVo.scrapId > 0}">
+								<i id="scrapIcon" class="fa-solid fa-star on-Clicked"
+									onclick="toggleScrap('${jobPostVo.jobPostId}', '${jobSeekerScrapVo.scrapId}')"></i>
+							</c:when>
+							<c:otherwise>
+								<i id="scrapIcon" class="fa-regular fa-star"
+									onclick="toggleScrap('${jobPostVo.jobPostId}', 0)"></i>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<i id="scrapIcon" class="fa-regular fa-star my-cursor"
-							onclick="toggleScrap('${jobPostVo.jobPostId}', 0)"></i>
+						<a href="<c:url value='/login'/>"> <i id="scrapIcon"
+							class="fa-regular fa-star"></i>
+						</a>
 					</c:otherwise>
 				</c:choose>
-			</c:when>
-			<c:otherwise>
-				<!-- 세션에 로그인 정보가 없는 경우 -->
-				<a href="<c:url value='/login'/>"> <i id="scrapIcon"
-					class="fa-regular fa-star"></i>
-				</a>
-			</c:otherwise>
-		</c:choose>
+			</div>
+		</div>
 	</div>
 
-	<!-- JavaScript 코드 -->
+	<!-- JavaScript 코드는 그대로 유지 -->
 	<script>
     function toggleScrap(bno, scrapId) {
         let jobSeekerId = '${sessionScope.jobSeekerVo.jobSeekerId}';
