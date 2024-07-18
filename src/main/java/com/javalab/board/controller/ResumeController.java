@@ -46,11 +46,12 @@ public class ResumeController {
 	 * 게시물 목록 보기 메소드
 	 */
     @GetMapping
-    public String listResumes(Model model) {
-        String jobseekerId = "java";
-        JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobseekerId);
-        List<ResumeVo> resumes = resumeService.getAllResumes();
+    public String listResumes(Model model ,HttpSession session) {
+    	
+ 	    String jobSeekerId = (String) session.getAttribute("jobSeekerId");
+        JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobSeekerId);  	
         
+        List<ResumeVo> resumes = resumeService.getAllResumes();
         // Resumes를 resumeId 기준으로 정렬
         resumes.sort(Comparator.comparingInt(ResumeVo::getResumeId));
 
@@ -62,13 +63,13 @@ public class ResumeController {
     
     //이력서 작성 폼
     @GetMapping("/new")
-    public String newResumeForm(Model model) {
+    public String newResumeForm(Model model ,HttpSession session) {
         // 세션에서 사용자 정보 조회 (예: 세션에 저장된 jobSeekerId를 사용)
-        String jobseekerId = "java";
+  	    String jobSeekerId = (String) session.getAttribute("jobSeekerId");
+  	    
+        JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobSeekerId);  	
         
         // 개인 신상 정보 조회
-        JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobseekerId);
-        
         model.addAttribute("jobSeekerVo", jobSeekerVo);
         model.addAttribute("resume", new ResumeVo());
         return "resume/new";
@@ -99,18 +100,20 @@ public class ResumeController {
 		
 	 
 
-
+		//이력서 보기
 		@GetMapping("/{resumeId}")
-		public String viewResume(@PathVariable int resumeId, Model model) {
-			String jobseekerId = "java";
-			JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobseekerId);
+		public String viewResume(@PathVariable int resumeId, Model model ,HttpSession session) {
+			
+	  	    String jobSeekerId = (String) session.getAttribute("jobSeekerId");
+			JobSeekerVo jobSeekerVo = jobSeekerService.getJobSeeker(jobSeekerId);
+			
 			model.addAttribute("jobSeekerVo", jobSeekerVo);
 			ResumeVo resume = resumeService.getResumeById(resumeId);
 			model.addAttribute("resume", resume);
 			return "resume/view";
 		}
 	      
-	// 	  	수정은 됐다고 알림만뜨고 저장은 안되는것 업데이트
+		// 	 업데이트
 	      	@GetMapping("/{resumeId}/edit")
 	      	public String editResumeForm(@PathVariable int resumeId, Model model) {
 	        ResumeVo resume = resumeService.getResumeById(resumeId);
@@ -166,24 +169,20 @@ public class ResumeController {
 	 */
 	      	
 	      	
-	      	
+	      	//이력서 수정
 	      	@PostMapping("/{resumeId}/update")
 	      	public ResponseEntity<String> updateResume(@PathVariable int resumeId, 
 	      	                                           @RequestBody ResumeVo resume, 
 	      	                                           HttpSession session) {
 
-	      	    log.info("Updating resume with ID: " + resumeId);
-	      	    log.info("Received resume data: " + resume.toString());
 
 	      	    // 세션에서 jobSeekerId를 가져옴
-	      	    String jobSeekerId = (String) session.getAttribute("jobSeekerId");
-	      	    JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
-	      	    
-	      	    log.info("Session jobSeekerId: " + jobSeekerId);
-	      	    log.info("Session jobSeekerVo: " + jobSeekerVo);
-
+				
+				 String jobSeekerId = (String) session.getAttribute("jobSeekerId");
+				 JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
+				 
+		  	
 	      	    if (jobSeekerId == null) {
-	      	        log.warn("Unauthorized access attempt by session: " + session.getId());
 	      	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
 	      	    }
 
@@ -193,25 +192,15 @@ public class ResumeController {
 	      	    try {
 	      	        int result = resumeService.updateResume(resume); // 데이터베이스 업데이트 호출
 	      	        if (result > 0) {
-	      	            log.info("Resume updated successfully for resumeId: " + resumeId);
-	      	            return ResponseEntity.ok("Resume updated successfully");
+	      	            return ResponseEntity.ok("업데이트 성공");
 	      	        } else {
-	      	            log.error("Failed to update resume for resumeId: " + resumeId);
-	      	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update resume");
+	      	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
 	      	        }
 	      	    } catch (Exception e) {
-	      	        log.error("Error updating resume for resumeId: " + resumeId, e);
-	      	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	      	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러 발생");
 	      	    }
 	      	}
 
-
-
-
-
-	      
-	      
-	      
 	      
     @PostMapping("/{resumeId}/delete")
     public String deleteResume(@PathVariable int resumeId) {

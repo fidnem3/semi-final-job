@@ -24,17 +24,14 @@
                                 </div>
                                 <div class="col-2 pt-3">
                                     <div class="mb-2">이름</div>
-                                    <div class="mb-2">생년월일</div>
                                     <div class="mb-2">Email</div>
                                     <div class="mb-2">연락처</div>
-                                    <div class="mb-2">주소</div>
+                                <!--     <div class="mb-2">주소</div> --> 
                                 </div>
                                 <div class="col-7 pt-3">
                                     <div class="mb-2">${jobSeekerVo.name}</div>
-                                    <div class="mb-2">${jobSeekerVo.birth}</div>
                                     <div class="mb-2">${jobSeekerVo.email}</div>
                                     <div class="mb-2">${jobSeekerVo.tel}</div>
-                                    <div class="mb-2">${jobSeekerVo.address}</div>
                                 </div>
                             </div>
                         </div>

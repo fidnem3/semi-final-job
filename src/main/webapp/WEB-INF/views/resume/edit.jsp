@@ -188,8 +188,6 @@
             content: $('#content').val()
         };
 
-        console.log("Sending data:", resumeData);
-
         $.ajax({
             url: '/resumes/' + resumeId + '/update',
             type: 'POST',

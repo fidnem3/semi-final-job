@@ -115,9 +115,7 @@ footer .sns i {
                 <th>이름</th>
                 <th>제목</th>
                 <th>이메일</th>
-                <th>생년월일</th>
                 <th>연락처</th>
-                <th>주소</th>
                 <th>학력</th>
                 <th>경력</th>
                 <th>자세히 보기</th>
@@ -130,9 +128,7 @@ footer .sns i {
                     <td>${jobSeekerVo.name}</td>
                     <td>${resume.title}</td>
                     <td>${jobSeekerVo.email}</td>
-                    <td>${jobSeekerVo.birth}</td>
                     <td>${jobSeekerVo.tel}</td>
-                    <td>${jobSeekerVo.address}</td>
                     <td>${resume.education}</td>
                     <td>${resume.experience}</td>
                     <td>
