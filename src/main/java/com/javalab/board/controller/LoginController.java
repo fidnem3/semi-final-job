@@ -73,7 +73,10 @@ public class LoginController {
             session.setAttribute("jobSeekerVo", LoginJobSeekerVo);
             session.setAttribute("jobSeekerId", LoginJobSeekerVo.getJobSeekerId()); // jobSeekerId 저장
             log.info("세션에 사용자 저장 완료 ");
-            return "redirect:/jobPost/list"; // 게시물 목록 페이지로 리다이렉트
+            // 세션에 저장한 사용자 정보 조회
+            //JobSeekerVo jobSeeker = (JobSeekerVo) session.getAttribute("jobSeekerVo");
+
+            return "redirect:index"; // index 페이지로 리다이렉트
         } else {
             redirectAttributes.addFlashAttribute("error", "아이디와 비밀번호를 확인하세요");
             redirectAttributes.addFlashAttribute("jobSeekerVo", jobSeekerVo);

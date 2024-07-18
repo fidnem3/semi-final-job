@@ -11,21 +11,20 @@
 
 	<!-- 회원가입 -->
 	<insert id="createJobSeeker" parameterType="JobSeekerVo">
-		Insert INTO jobSeeker (jobSeeker_id, password, name, email)
-		VALUES (#{jobSeekerId}, #{password}, #{name}, #{email})
+		INSERT INTO jobSeeker (jobSeeker_id, password, name, tel, email)
+		VALUES (#{jobSeekerId}, #{password}, #{name}, #{tel}, #{email})
 	</insert>
 	<!-- 회원 포인트 증가 -->
 	<update id="updateJobSeekerPoint" parameterType="String">
-		UPDATE MEMBER
+		UPDATE jobSeeker
 		SET POINT = POINT + 1
-		WHERE MEMBER_ID = #{jobSeekerId}
-
+		WHERE jobSeekerId = #{jobSeekerId}
 	</update>
 
 	<!-- 회원 정보 조회 -->
 	<select id="getJobSeeker" parameterType="String"
 		resultType="JobSeekerVo">
-		SELECT name,birth, password, jobSeeker_id, email , address , tel
+		SELECT *
 		FROM jobSeeker
 		WHERE jobSeeker_id = #{jobSeekerId}
 	</select>

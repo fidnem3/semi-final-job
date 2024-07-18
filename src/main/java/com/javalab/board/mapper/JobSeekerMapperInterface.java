@@ -10,9 +10,10 @@ import com.javalab.board.vo.JobSeekerVo;
  *
  */
 //@Mapper
+@Mapper
 public interface JobSeekerMapperInterface {
-	int createJobSeeker(JobSeekerVo jobSeekerVo); //회원가입
-	JobSeekerVo getJobSeeker(String jobSeekerId); // 회원 한명 조회
-	void updateJobSeekerPoint(String jobSeekerId); // 포인트 지급
+    int createJobSeeker(JobSeekerVo jobSeekerVo);
+    void updateJobSeekerPoint(String jobSeekerId);
+    JobSeekerVo getJobSeeker(String jobSeekerId);
 	
 }

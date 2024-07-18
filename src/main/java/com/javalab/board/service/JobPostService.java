@@ -41,7 +41,7 @@ public interface JobPostService {
 	 * 
 	 * @param jobPost 등록할 채용 공고 정보
 	 */
-	int insertJobPost(JobPostVo jobPost);
+	int createJobPost(JobPostVo jobPost);
 
 	/**
 	 * 특정 ID의 채용 공고 상세 정보를 조회합니다. 이 메서드는 채용 공고의 모든 세부 정보를 포함하여 반환합니다. 주로 상세 보기 페이지에서
@@ -73,6 +73,10 @@ public interface JobPostService {
 	 * @return 필터링된 채용 공고 목록
 	 */
 	List<JobPostVo> getFilteredJobPosts(Map<String, Object> filters);
+
+	public List<JobPostVo> getScrapList(String jobSeekerId);
+
+	public String getJobPostTitleByJobPostId(int jobPostId);
 
 	/**
 	 * 특정 채용 공고의 조회수를 증가시킵니다.

@@ -25,14 +25,15 @@ public class JobSeekerServiceImpl implements JobSeekerService {
 		return result;
 	}
 
-	@Override
-	@Transactional
-	public void updateJobSeekerPoint(String jobSeekerId) {
-		jobSeekerMapper.updateJobSeekerPoint(jobSeekerId);
-	}
 
 	@Override
 	public JobSeekerVo getJobSeeker(String jobSeekerId) {
 		return jobSeekerMapper.getJobSeeker(jobSeekerId);
+	}
+	
+	@Override
+	@Transactional
+	public void updateJobSeekerPoint(String jobSeekerId) {
+		jobSeekerMapper.updateJobSeekerPoint(jobSeekerId);
 	}
 }

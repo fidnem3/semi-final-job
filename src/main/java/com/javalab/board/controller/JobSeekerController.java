@@ -28,11 +28,11 @@ public class JobSeekerController {
 		return "jobSeeker/jobSeekerCreate";
 	}
 
-	@PostMapping("create")
+	@PostMapping("/create")
 	public String createJobSeeker(@ModelAttribute JobSeekerVo jobSeekerVo) {
 		log.info("createJobSeeker 메소드 : " + jobSeekerVo);
 		jobSeekerService.createJobSeeker(jobSeekerVo);
-		return "redirect:/jobSeeker/list";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/{jobSeekerId}")

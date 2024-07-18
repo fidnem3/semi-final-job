@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -8,8 +9,9 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
@@ -17,17 +19,42 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<!-- 스프링 MVC에서 웹과 관련된 빈의 위치를 지정하는 역할을 한다.
-		com.javalab.mybatis.controller : 이 위치에 있는 클래스들만 빈으로 생성한다. -->
-	<context:component-scan base-package="com.javalab.board.controller" />
-	
+
+	<!-- 스프링 MVC에서 웹과 관련된 빈의 위치를 지정하는 역할을 한다. com.javalab.mybatis.controller 
+		: 이 위치에 있는 클래들만 빈으로 생성한다. -->
+	<context:component-scan
+		base-package="com.javalab.board.controller" />
+
+
+	<!-- Configure Multipart Resolver -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 업로드된 파일의 기본 인코딩을 설정합니다 -->
+		<beans:property name="defaultEncoding" value="UTF-8" />
+		<!-- 전체 업로드 파일 크기의 최대 값을 설정(약 100MB) -->
+		<beans:property name="maxUploadSize" value="104857560" />
+		<!-- 개별 파일의 최대 업로드 크기를 설정(약 10MB) -->
+		<beans:property name="maxUploadSizePerFile"
+			value="10485760" />
+		<!-- 파일이 임시로 저장될 디렉토리를 설정 -->
+		<beans:property name="uploadTempDir"
+			value="file:/filetest/upload/tmp" />
+		<!-- 업로드된 파일이 메모리에 저장될 최대 크기를 설정(1MB) 이 설정은 업로드된 파일의 크기가 지정된 값보다 작으면 메모리에 
+			저장하고, 크면 임시 디스크 저장소에 저장하도록 설정. 업로드가 완료되면 애플리케이션은 이 임시 파일을 원하는 위치로 이동 -->
+		<beans:property name="maxInMemorySize" value="1048576" />
+	</beans:bean>
+
+
+
 </beans:beans>
