@@ -32,6 +32,55 @@
 <link href="/resources/assets/dist/css/bootstrap.min.css"
    rel="stylesheet">
 <style>
+ body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+header {
+   background-color: #333;
+   color: white;
+   padding: 1em;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+header .logo {
+   display: flex;
+   align-items: center;
+}
+
+header .logo h1 {
+   margin: 0;
+   margin-right: 1em;
+}
+
+header nav ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+}
+
+header nav ul li {
+   margin-left: 1em;
+}
+
+header nav ul li a {
+   color: white;
+   text-decoration: none;
+   padding: 0.5em 1em;
+   border-radius: 4px;
+   transition: background-color 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover {
+   background-color: #555;
+   color: #fff;
+}
 
 .bd-placeholder-img {
    font-size: 1.125rem;
@@ -198,7 +247,53 @@ section.py-5 {
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     color: white;
-}s
+}
+footer {
+    background-color: #f9f9f9;
+    color: white;
+    text-align: center;
+    padding: 0.5em;
+    
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* 다른 요소 위에 위치하도록 설정 */
+}
+
+.footer-info {
+   display: flex;
+   justify-content: space-around;
+   margin-bottom: 1em;
+}
+
+.footer-btn {
+   background-color: #f9f9f9;
+   color: white;
+   border: none;
+   padding: 0.5em 1em;
+   cursor: pointer;
+   border-radius: 4px;
+   transition: background-color 0.3s, transform 0.3s;
+}
+
+.footer-btn:hover {
+   background-color: #555;
+   transform: scale(1.05);
+}
+
+.footer-details {
+   margin: 0 auto;
+   color: #ccc;
+}
+
+footer .sns {
+   margin-top: 30px;
+}
+
+footer .sns i {
+   font-size: 24px;
+   margin-right: 20px;
+}
+
     
     
 </style>
@@ -206,6 +301,23 @@ section.py-5 {
 
 
 <body>
+<header>
+        <div class="logo">
+            <h1>DelTopia</h1>
+            <span>개발자들의 천국으로 가다!</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="<c:url value='/jobSeeker/create'/>">Sign-up</a></li>
+                <li><a href="#">Company-Service</a></li>
+            </ul>
+        </nav>
+    </header>
+ 
+    
+
+
    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path
@@ -274,52 +386,6 @@ section.py-5 {
          </li>
       </ul>
    </div>
-
-
-   <header data-bs-theme="dark">
-      <div class="collapse text-bg-dark" id="navbarHeader">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-8 col-md-7 py-4">
-                  <h4>About</h4>
-                  <p class="text-body-secondary">Add some information about the
-                     album below, the author, or any other background context. Make it
-                     a few sentences long so folks can pick up some informative
-                     tidbits. Then, link them off to some social networking sites or
-                     contact information.</p>
-               </div>
-               <div class="col-sm-4 offset-md-1 py-4">
-                  <h4>Contact</h4>
-                  <ul class="list-unstyled">
-                     <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                     <li><a href="#" class="text-white">Like on Facebook</a></li>
-                     <li><a href="#" class="text-white">Email me</a></li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-         <div class="container">
-            <a href="#" class="navbar-brand d-flex align-items-center"> <svg
-                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-linecap="round"
-                  stroke-linejoin="round" stroke-width="2" aria-hidden="true"
-                  class="me-2" viewBox="0 0 24 24">
-                  <path
-                     d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                  <circle cx="12" cy="13" r="4" /></svg> <strong>Album</strong>
-            </a>
-            <button class="navbar-toggler" type="button"
-               data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-               aria-controls="navbarHeader" aria-expanded="false"
-               aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-         </div>
-      </div>
-   </header>
-
    <main>
 
       <section class="py-5 text-center container">
@@ -387,20 +453,31 @@ section.py-5 {
          </div>
       </div>
    </main>
+   <footer>
+        <div class="footer-info">
+            <button class="footer-btn" onclick="location.href='#'">회사소개</button>
+            <button class="footer-btn" onclick="location.href='#'">인재채용</button>
+            <button class="footer-btn" onclick="location.href='#'">회원약관</button>
+            <button class="footer-btn" onclick="location.href='#'">개인정보처리방침</button>
+            <button class="footer-btn" onclick="location.href='#'">제휴문의</button>
+            <button class="footer-btn" onclick="location.href='#'">고객센터</button>
+        </div>
 
-   <footer class="text-body-secondary py-5">
-      <div class="container">
-         <p class="float-end mb-1">
-            <a href="#">Back to top</a>
-         </p>
-         <p class="mb-1">Album example is &copy; Bootstrap, but please
-            download and customize it for yourself!</p>
-         <p class="mb-0">
-            New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-               href="../getting-started/introduction/">getting started guide</a>.
-         </p>
-      </div>
-   </footer>
+        <div class="footer-details">
+            <p>(주)DelTopia</p>
+            <h5>기업번호: 123-45-67890</h5>
+            <h5>우편번호 : 12345, 구로구 디지털로 77길 88, 60층, 대표 : EHYJ</h5>
+            <h5>사업자등록 : 222-33-6666, 직업정보제공사업 : 서울 관악 제 800-9호, 통신판매업 : 제 6006-98564호</h5>
+            <h5>고객센터: 1234-5678</h5>
+        </div>
+
+        <div class="sns">
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-facebook-square"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-github"></i>
+        </div>
+    </footer>
 
    <script>
 var jobPostings = [
