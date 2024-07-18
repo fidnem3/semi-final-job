@@ -209,7 +209,7 @@
    <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-3">
         <c:if test="${not empty scrapList}">
-            <c:forEach var="jobPost" items="${scrapList}">
+            <c:forEach var="jobPosts" items="${scrapList}">
                 <div class="col">
                     <div class="card shadow-sm">
                         <!-- Placeholder image, adjust as needed -->
@@ -219,12 +219,12 @@
                             <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
                         <div class="card-body">
-                            <h5 class="card-title"><c:out value="${jobPost.title}" /></h5>
-                            <p class="card-text">게시물 번호: <c:out value="${jobPost.jobPostId}" /></p>
-                            <p class="card-text">작성일자: <fmt:formatDate value="${jobPost.created}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+                            <h5 class="card-title"><c:out value="${jobPosts.title}" /></h5>
+                            <p class="card-text">게시물 번호: <c:out value="${jobPosts.jobPostId}" /></p>
+                            <p class="card-text">작성일자: <fmt:formatDate value="${jobPosts.created}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="<c:url value='/board/view?jobPostId=${jobPost.jobPostId}'/>" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a href="<c:url value='/board/view?jobPostId=${jobPosts.jobPostId}'/>" class="btn btn-sm btn-outline-secondary">View</a>
                                     <!-- Add other buttons as needed -->
                                 </div>
                                 <small class="text-body-secondary">9 mins</small> <!-- Replace with actual timestamp or remove if not needed -->
