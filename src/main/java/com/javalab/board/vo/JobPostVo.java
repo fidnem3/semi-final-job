@@ -19,37 +19,37 @@ import lombok.ToString;
 @ToString
 public class JobPostVo {
 
-	private int jobPostId; // 채용공고ID
-	private String compId; // 기업ID
-	private String title; // 공고제목
-	private String content; // 공고 내용
-	private String position; // 직위
-	private String salary; // 연봉
-	private String experience; // 경력
-	private String education; // 학력
-	private String address; // 기업주소
-	private int scrapCount; // 스크랩수
-	private String homePage; // 기업홈페이지
-	private int hitNo; // 조회수
-	private String function; // 기능
-	private String job; // 직업
-	private String location; // 지역
+   private int jobPostId; // 채용공고ID
+   private String compId; // 기업ID
+   private String title; // 공고제목
+   private String content; // 공고 내용
+   private String position; // 직위
+   private String salary; // 연봉
+   private String experience; // 경력
+   private String education; // 학력
+   private String address; // 기업주소
+   private int scrapCount; // 스크랩수
+   private String homePage; // 기업홈페이지
+   private int hitNo; // 조회수
+   private String function; // 기능
+   private String job; // 직업
+   private String location; // 지역
 
-	private String fileName;
-	private String filePath;
+   private String fileName;
+   private String filePath;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date endDate; // 마감기한
+   @DateTimeFormat(pattern = "yyyy-MM-dd")
+   private Date endDate; // 마감기한
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date created; // 작성일자
+   @DateTimeFormat(pattern = "yyyy-MM-dd")
+   private Date created; // 작성일자
 
-	// 기본 생성자와 모든 필드를 포함하는 생성자는 Lombok에 의해 자동 생성됩니다.
+   // 기본 생성자와 모든 필드를 포함하는 생성자는 Lombok에 의해 자동 생성됩니다.
 
-	// 특정 필드만을 위한 생성자
-	public JobPostVo(int jobPostId, String title, String content) {
-		this.jobPostId = jobPostId;
-		this.title = title;
-		this.content = content;
-	}
+   // 특정 필드만을 위한 생성자
+   public JobPostVo(int jobPostId, String title, String content) {
+      this.jobPostId = jobPostId;
+      this.title = title;
+      this.content = content;
+   }
 }

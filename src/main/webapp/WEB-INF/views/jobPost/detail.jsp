@@ -135,38 +135,44 @@ button:hover {
 
 	<!-- JavaScript 코드는 그대로 유지 -->
 	<script>
-    function toggleScrap(bno, scrapId) {
-        let jobSeekerId = '${sessionScope.jobSeekerVo.jobSeekerId}';
-        let data = {
-            jobSeekerId: jobSeekerId,
-            jobPostId: jobPostId
-        };
+	function toggleScrap(jobPostId, scrapId) {
+	    let jobSeekerId = '${sessionScope.jobSeekerVo.jobSeekerId}';
+	    
+	    // Check if jobSeekerId is available in session
+	    if (jobSeekerId) {
+	        let data = {
+	            jobSeekerId: jobSeekerId,
+	            jobPostId: jobPostId
+	        };
 
-        $.ajax({
-            type: "POST",
-            url: "<c:url value='/jobSeeker/scrap/toggle'/>",
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            dataType: "json",
-            success: function(response) {
-                if (response === "canceled") {
-                    $('#scrapIcon').removeClass('fa-solid on-Clicked').addClass('fa-regular');
-                    alert('스크랩이 취소되었습니다.');
-                } else {
-                    $('#scrapIcon').removeClass('fa-regular').addClass('fa-solid on-Clicked');
-                    alert('게시물이 스크랩되었습니다.');
-                }
-            },
-            error: function(xhr, status, error) {
-                alert(xhr.responseText);
-            }
-        });
-    }
+	        $.ajax({
+	            type: "POST",
+	            url: "<c:url value='/jobSeeker/scrap/toggle'/>",
+	            contentType: "application/json",
+	            data: JSON.stringify(data),
+	            dataType: "json",
+	            success: function(response) {
+	                if (response === "canceled") {
+	                    $('#scrapIcon').removeClass('fa-solid on-Clicked').addClass('fa-regular');
+	                    alert('스크랩이 취소되었습니다.');
+	                } else {
+	                    $('#scrapIcon').removeClass('fa-regular').addClass('fa-solid on-Clicked');
+	                    alert('게시물이 스크랩되었습니다.');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                alert(xhr.responseText);
+	            }
+	        });
+	    } else {
+	        // Redirect to login page if jobSeekerId is not available
+	        window.location.href = "<c:url value='/login'/>";
+	    }
+	}
+
     function navigateTo(url) {
         window.location.href = url;
     }
-</script>
-	<script>
     function editJobPost(jobPostId) {
         window.location.href = "${contextPath}/jobPost/edit/" + jobPostId;
     }

@@ -15,8 +15,8 @@
         location,
         experience, 
         end_date,
-        fileName,  <!-- 이 부분 확인 -->
-        filePath   <!-- 이 부분 확인 -->
+        file_name,  <!-- 이 부분 확인 -->
+        file_path   <!-- 이 부분 확인 -->
     FROM jobPost
 </select>
 
