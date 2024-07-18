@@ -214,10 +214,12 @@
                     <div class="card shadow-sm">
                         <!-- Placeholder image, adjust as needed -->
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c"/>
-                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                        </svg>
+    <title>Placeholder</title>
+    <rect width="100%" height="100%" fill="#55595c"/>
+    <!-- 이미지 삽입 -->
+    <image xlink:href="${contextPath}/resources/image/10.png" width="100%" height="100%" />
+</svg>
+
                         <div class="card-body">
                             <h5 class="card-title"><c:out value="${jobPosts.title}" /></h5>
                             <p class="card-text">게시물 번호: <c:out value="${jobPosts.jobPostId}" /></p>
