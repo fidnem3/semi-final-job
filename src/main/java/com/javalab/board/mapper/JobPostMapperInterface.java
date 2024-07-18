@@ -11,10 +11,11 @@ import com.javalab.board.vo.JobPostVo;
 public interface JobPostMapperInterface {
 
 	/**
-	 * public VS void 
-	 * 명식적과 암시적 차이 void insertJobPost(JobPostVo jobPost); 접근 제어자를 명시하지 않았지만 암시적으로 public입니다.
-	 * public void insertJobPost(JobPostVo jobPost); 접근 제어자를 명시적으로 선언했습니다.
+	 * public VS void 명식적과 암시적 차이 void insertJobPost(JobPostVo jobPost); 접근 제어자를
+	 * 명시하지 않았지만 암시적으로 public입니다. public void insertJobPost(JobPostVo jobPost); 접근
+	 * 제어자를 명시적으로 선언했습니다.
 	 */
+
 
 	/**
 	 * 모든 채용 공고를 조회합니다.
@@ -36,19 +37,16 @@ public interface JobPostMapperInterface {
 	 * 
 	 * @param jobPost 등록할 채용 공고 정보
 	 */
-	int insertJobPost(JobPostVo jobPost);
-	
-	
-    /**
-     * 특정 ID의 채용 공고 상세 정보를 조회합니다.
-     * 이 메서드는 채용 공고의 모든 세부 정보를 포함하여 반환합니다.
-     * 주로 상세 보기 페이지에서 사용됩니다.
-     * 
-     * @param jobPostId 조회할 채용 공고의 ID
-     * @return 조회된 채용 공고의 상세 정보
-     */
-    JobPostVo getJobPostDetail(String jobPostId);
-	
+	int createJobPost(JobPostVo jobPost);
+
+	/**
+	 * 특정 ID의 채용 공고 상세 정보를 조회합니다. 이 메서드는 채용 공고의 모든 세부 정보를 포함하여 반환합니다. 주로 상세 보기 페이지에서
+	 * 사용됩니다.
+	 * 
+	 * @param jobPostId 조회할 채용 공고의 ID
+	 * @return 조회된 채용 공고의 상세 정보
+	 */
+	JobPostVo getJobPostDetail(String jobPostId);
 
 	/**
 	 * 기존 채용 공고 정보를 수정합니다.
@@ -71,6 +69,12 @@ public interface JobPostMapperInterface {
 	 * @return 필터링된 채용 공고 목록
 	 */
 	List<JobPostVo> getFilteredJobPosts(Map<String, Object> filters);
+	
+	
+	List<JobPostVo> getScrapList(String jobSeekerId);
+	
+	
+	 String getJobPostTitleByJobPostId(int jobPostId);
 
 	/**
 	 * 특정 채용 공고의 조회수를 증가시킵니다.

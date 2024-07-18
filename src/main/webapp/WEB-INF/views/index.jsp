@@ -354,7 +354,7 @@ footer .sns i {
             <div class="category-btn" onclick="toggleDropdown('dropdown2')">
                 <h2>기업/채용</h2>
                 <div id="dropdown2" class="dropdown-content">
-                    <a href="<c:url value='/jobpost/list'/>">TOP100</a>
+                    <a href="<c:url value='/jobPost/list'/>">TOP100</a>
                     <a href="#">1000대기업공채</a>
                     <a href="#">공공기관채용일정</a>
                     <a href="#">전문채용관</a>
@@ -367,7 +367,7 @@ footer .sns i {
                     <a href="#">개인정보수정</a>
                     <a href="#">입사지원현황</a>
                     <a href="#">포지션제안</a>
-                    <a href="<c:url value='/board/scrapList'/>">스크랩공고</a>
+                    <a href="<c:url value='jobSeeker/scrap/list/java'/>">스크랩공고</a>
                 </div>
             </div>
         </div>
@@ -385,7 +385,6 @@ footer .sns i {
 				</div>
 			</a>
 		</div>
-
 
 		<div class="job-section">
             <h1>지금 채용중!</h1>
@@ -532,8 +531,6 @@ footer .sns i {
             }
         });
         
-    </script>
-    
-    
+    </script> 
 </body>
 </html>

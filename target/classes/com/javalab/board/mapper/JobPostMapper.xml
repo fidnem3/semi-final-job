@@ -3,12 +3,25 @@
 
 <mapper
 	namespace="com.javalab.board.mapper.JobPostMapperInterface">
+<select id="getAllJobPosts" resultType="com.javalab.board.vo.JobPostVo">
+    SELECT 
+        jobpost_id, 
+        comp_id, 
+        title, 
+        content,
+        address,
+        function,
+        job,
+        location,
+        experience, 
+        end_date,
+        file_name,  <!-- 이 부분 확인 -->
+        file_path   <!-- 이 부분 확인 -->
+    FROM jobPost
+</select>
 
-	<!-- 모든 채용 공고 조회 -->
-	<select id="getAllJobPosts"
-		resultType="com.javalab.board.vo.JobPostVo">
-		SELECT * FROM jobPost
-	</select>
+
+
 
 	<!-- 특정 ID의 채용 공고 조회 -->
 	<select id="getJobPostById" parameterType="string"
@@ -22,46 +35,78 @@
 		SELECT * FROM jobPost WHERE jobPost_id = #{jobPostId}
 	</select>
 
-
-
-
-
-	<!-- 새로운 채용 공고 등록 -->
-	<insert id="insertJobPost"
-		parameterType="com.javalab.board.vo.JobPostVo">
-		INSERT INTO jobPost (jobPost_id, comp_id, title,
-		content, position, salary,
-		experience, education, address, end_date,
-		homepage)
-		VALUES (#{jobPostId}, #{compId}, #{title}, #{content},
-		#{position},
-		#{salary}, #{experience}, #{education}, #{address},
-		#{endDate},
-		#{homePage})
-	</insert>
-
+    <!-- 새로운 채용 공고 등록 (파일 업로드 필드 추가) -->
+    <insert id="createJobPost" parameterType="com.javalab.board.vo.JobPostVo">
+    <![CDATA[
+        INSERT INTO JobPost (
+            jobpost_id,
+            comp_id,
+            title,
+            content,
+            position,
+            salary,
+            experience,
+            education,
+            address,
+            scrap_count,
+            job,
+            location,
+            function,
+            homepage,
+            hit_no,
+            end_date,
+            created,
+            file_name,
+            file_path
+        ) VALUES (
+            job_post_seq.nextval,
+            #{compId, jdbcType=VARCHAR},
+            #{title, jdbcType=VARCHAR},
+            #{content, jdbcType=VARCHAR},
+            #{position, jdbcType=VARCHAR},
+            #{salary, jdbcType=VARCHAR},
+            #{experience, jdbcType=VARCHAR},
+            #{education, jdbcType=VARCHAR},
+            #{address, jdbcType=VARCHAR},
+            #{scrapCount, jdbcType=NUMERIC},
+            #{job, jdbcType=VARCHAR},
+            #{location, jdbcType=VARCHAR},
+            #{function, jdbcType=VARCHAR},
+            #{homePage, jdbcType=VARCHAR},
+            #{hitNo, jdbcType=NUMERIC},
+            NVL(TO_DATE(#{endDate, jdbcType=DATE}, 'YYYY-MM-DD'), SYSDATE),
+            NVL(TO_DATE(#{created, jdbcType=DATE}, 'YYYY-MM-DD'), SYSDATE),
+            #{fileName, jdbcType=VARCHAR},
+            #{filePath, jdbcType=VARCHAR}
+        )
+    ]]>
+    </insert>
 	<!-- 채용 공고 정보 수정 -->
 	<!-- <update id="updateJobPost" parameterType="com.javalab.board.vo.JobPostVo"> 
 		UPDATE jobPost SET title = #{title}, content = #{content}, salary = #{salary}, 
 		position = #{position}, experience = #{experience}, education = #{education}, 
 		address = #{address}, end_date = #{endDate}, homepage = #{homePage} WHERE 
 		jobPost_id = #{jobPostId} </update> -->
-	<update id="updateJobPost"
-		parameterType="com.javalab.board.vo.JobPostVo">
-		UPDATE jobPost
-		<set>
-			<if test="title != null">title = #{title},</if>
-			<if test="content != null">content = #{content},</if>
-			<if test="salary != null">salary = #{salary},</if>
-			<if test="position != null">position = #{position},</if>
-			<if test="experience != null">experience = #{experience},</if>
-			<if test="education != null">education = #{education},</if>
-			<if test="address != null">address = #{address},</if>
-			<if test="endDate != null">end_date = #{endDate},</if>
-			<if test="homePage != null">homepage = #{homePage},</if>
-		</set>
-		WHERE jobPost_id = #{jobPostId}
-	</update>
+    <update id="updateJobPost" parameterType="com.javalab.board.vo.JobPostVo">
+        UPDATE jobPost
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="experience != null">experience = #{experience},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="location != null">location = #{location},</if>
+            <if test="function != null">function = #{function},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="homePage != null">homepage = #{homePage},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="filePath != null">file_path = #{filePath},</if>
+        </set>
+        WHERE jobPost_id = #{jobPostId}
+    </update>
 
 	<!-- 채용 공고 삭제 -->
 	<delete id="deleteJobPost" parameterType="string">
@@ -92,5 +137,15 @@
 		hit_no = hit_no + 1
 		WHERE jobPost_id = #{jobPostId}
 	</update>
+
+
+	<select id="getScrapList" parameterType="string"
+		resultType="com.javalab.board.vo.JobPostVo">
+		SELECT j.jobPost_id, j.title, j.created, k.jobSeeker_id
+		FROM jobSeeker_scrap s
+		JOIN jobPost s ON j.jobPost_id = j.jobPost_id
+		JOIN jobSeeker k ON s.jobSeeker_id = k.jobSeeker_id
+		WHERE s.jobSeeker_id = #{jobSeekerId}
+	</select>
 
 </mapper>
