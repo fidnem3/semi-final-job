@@ -94,12 +94,18 @@ button:hover {
 	<div class="job-detail-container">
 		<h1>${jobPost.title}</h1>
 		<div class="job-info">
-			<strong>회사:</strong> <span>${jobPost.compId}</span> <strong>내용:</strong>
-			<span>${jobPost.content}</span> <strong>직위:</strong> <span>${jobPost.position}</span>
-			<strong>연봉:</strong> <span>${jobPost.salary}</span> <strong>경력:</strong>
-			<span>${jobPost.experience}</span> <strong>지역:</strong> <span>${jobPost.location}</span>
-			<strong>학력:</strong> <span>${jobPost.education}</span> <strong>기업주소:</strong>
-			<span>${jobPost.address}</span> <strong>마감일:</strong> <span>${jobPost.endDate}</span>
+			<strong>회사:</strong> <span>${jobPost.compId}</span> 
+			<strong>내용:</strong> <span>${jobPost.content}</span> 
+			<strong>직위:</strong> <span>${jobPost.position}</span>
+			<strong>연봉:</strong> <span>${jobPost.salary}</span> 
+			<strong>경력:</strong> <span>${jobPost.experience}</span> 
+			<strong>지역:</strong> <span>${jobPost.location}</span>
+			<strong>기능:</strong> <span>${jobPost.job}</span>
+			<strong>직업:</strong> <span>${jobPost.function}</span>
+			<strong>학력:</strong> <span>${jobPost.education}</span> 
+			<strong>기업주소:</strong> <span>${jobPost.address}</span> 
+			<strong>마감일:</strong> <span>${jobPost.endDate}</span>
+			
 		</div>
 
 		<div class="button-container">

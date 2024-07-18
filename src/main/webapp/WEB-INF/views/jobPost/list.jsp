@@ -9,17 +9,21 @@
 <head>
 <script src="/resources/assets/js/color-modes.js"></script>
 
+   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author"
    content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.122.0">
+
+
 <title>Album list · Bootstrap v5.3</title>
 
 <link rel="canonical"
    href="https://getbootstrap.com/docs/5.3/examples/album/">
-
+   
+   
 
 
 <link rel="stylesheet"
@@ -28,60 +32,6 @@
 <link href="/resources/assets/dist/css/bootstrap.min.css"
    rel="stylesheet">
 <style>
-@keyframes border-light {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-  }
-  50% {
-    box-shadow: 0 0 15px 3px rgba(0, 123, 255, 0.8);
-  }
-}
-
-.card {
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: visible;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: transparent;
-  border-radius: 5px;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.card:hover::before {
-  opacity: 1;
-  animation: border-light 2s infinite;
-}
-.card.hover-effect::before {
-  opacity: 1;
-  animation: border-light 2s infinite;
-}
-
-.shine-effect::after {
-   content: '';
-   position: absolute;
-   top: -50%;
-   left: -50%;
-   width: 200%;
-   height: 200%;
-   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-   transform: rotate(30deg);
-   animation: shine 1.5s infinite;
-}
 
 .bd-placeholder-img {
    font-size: 1.125rem;
@@ -159,6 +109,98 @@
 .bd-mode-toggle .dropdown-menu .active .bi {
    display: block !important;
 }
+ body {
+        font-family: 'Noto Sans KR', Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    .filter-container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .filter-buttons button {
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 2px solid #3498db;
+        background-color: #ffffff;
+        color: #3498db;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+        background-color: #3498db;
+        color: #ffffff;
+    }
+    .filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .filter-options button {
+        padding: 6px 12px;
+        font-size: 13px;
+        border: 1px solid #bdc3c7;
+        background-color: #ffffff;
+        color: #34495e;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .filter-options button:hover,
+    .filter-options button.btn-success {
+        background-color: #2ecc71;
+        color: #ffffff;
+        border-color: #2ecc71;
+    }
+     @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+        }
+    }
+
+    .filter-buttons button:focus {
+        animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+section.py-5 {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+}s
+    
+    
 </style>
 </head>
 

@@ -19,4 +19,6 @@ public class JobSeekerScrapVo {
     private String title;
     private int jobPostId;
     private Date created; //스크랩날짜
+    private String fileName;
+    
 }
