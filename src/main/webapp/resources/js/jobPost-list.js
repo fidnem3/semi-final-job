@@ -66,16 +66,14 @@ function displayJobPostings(postings) {
     }
     
     postings.forEach(posting => {
-    console.log('Full posting object:', posting);
+        console.log('Full posting object:', posting);
         const postingElement = document.createElement('div');
         postingElement.className = 'col';
-        // 이미지 URL 생성 로직 수정
-          console.log('fileName:', posting.fileName);
-          console.log('filePath:', posting.filePath);
-         const imageUrl = posting.fileName && posting.filePath ? `/uploads/${posting.fileName}` : '/resources/image/10.png';
-         console.log('imageUrl:', imageUrl);
-          postingElement.innerHTML = `
-            <div class="card shadow-sm" style="cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
+        const imageUrl = posting.fileName && posting.filePath ? `/uploads/${posting.fileName}` : '/resources/image/10.png';
+        console.log('imageUrl:', imageUrl);
+         
+        postingElement.innerHTML = `
+            <div class="card shadow-sm job-posting" style="cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
                 <img src="${imageUrl}" class="card-img-top" alt="${posting.title}" 
                      style="height: 200px; object-fit: cover;"
                      onerror="this.onerror=null; this.src='/resources/image/10.png'; console.error('Image load failed:', this.src);">
@@ -95,7 +93,6 @@ function displayJobPostings(postings) {
             </div>
         `;
         
-        	
         const card = postingElement.querySelector('.card');
         
         card.addEventListener('click', function(e) {
@@ -111,7 +108,7 @@ function displayJobPostings(postings) {
 
         card.addEventListener('mouseleave', function() {
             this.classList.remove('hover-effect');
-     		this.style.transform = 'translateY(0)';
+            this.style.transform = 'translateY(0)';
             this.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
         }); 
         
