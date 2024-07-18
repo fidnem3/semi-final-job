@@ -12,19 +12,19 @@ import com.javalab.board.vo.JobSeekerScrapVo;
 @Mapper
 public interface JobSeekerScrapMapperInterface {
 
-	  @Select("SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END FROM jobSeeker_scrap WHERE jobSeekerId = #{jobSeekerId} AND jobPostId = #{jobPostId}")
-	    boolean existsByJobSeekerIdAndJobPostId(@Param("jobSeekerId") String jobSeekerId, @Param("jobPostId") int jobPostId);
+     @Select("SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END FROM jobSeeker_scrap WHERE jobSeeker_id = #{jobSeekerId} AND jobPost_id = #{jobPostId}")
+       boolean existsByJobSeekerIdAndJobPostId(@Param("jobSeekerId") String jobSeekerId, @Param("jobPostId") int jobPostId);
 
 
-	void insertScrap(JobSeekerScrapVo scrap);
+   void insertScrap(JobSeekerScrapVo scrap);
 
-	void deleteScrap(@Param("scrapId") int scrapId);
+   void deleteScrap(@Param("scrapId") int scrapId);
 
-	List<JobSeekerScrapVo> getScrapList(@Param("jobSeekerId") String jobSeekerId);
-	
-	@Delete("DELETE FROM jobSeeker_scrap WHERE jobSeekerId = #{jobSeekerId} AND jobPostId = #{jobPostId}")
+   List<JobSeekerScrapVo> getScrapList(@Param("jobSeekerId") String jobSeekerId);
+   
+   @Delete("DELETE FROM jobSeeker_scrap WHERE jobSeeker_id = #{jobSeekerId} AND jobPost_id = #{jobPostId}")
     void deleteScrapByJobSeekerIdAndJobPostId(@Param("jobSeekerId") String jobSeekerId, @Param("jobPostId") int jobPostId);
-	
-	public List<JobSeekerScrapVo> listJobSeekerScrap();
+   
+   public List<JobSeekerScrapVo> listJobSeekerScrap();
 
 }

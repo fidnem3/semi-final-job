@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +31,12 @@ public class JobPostVo {
 	private int scrapCount; // 스크랩수
 	private String homePage; // 기업홈페이지
 	private int hitNo; // 조회수
-	private String fileName; // 파일 이름 
-	private String filePath; // 파일 주소
+	private String function; // 기능
+	private String job; // 직업
+	private String location; // 지역
+
+	private String fileName;
+	private String filePath;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate; // 마감기한

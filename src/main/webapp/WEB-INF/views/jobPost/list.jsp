@@ -325,12 +325,9 @@
 
 			<div id="jobFilter" class="filter-options mt-2"
 				style="display: none;">
-				<button class="btn btn-sm btn-outline-secondary me-1">프론트엔드
-					개발자</button>
-				<button class="btn btn-sm btn-outline-secondary me-1">백엔드
-					개발자</button>
-				<button class="btn btn-sm btn-outline-secondary me-1">풀스텍
-					개발자</button>
+				<button class="btn btn-sm btn-outline-secondary me-1">프론트엔드 개발자</button>
+				<button class="btn btn-sm btn-outline-secondary me-1">백엔드 개발자</button>
+				<button class="btn btn-sm btn-outline-secondary me-1">풀스텍 개발자</button>
 			</div>
 
 			<div id="locationFilter" class="filter-options mt-2"
@@ -370,12 +367,16 @@ var jobPostings = [
             jobPostId: "${post.jobPostId}",
             compId: "${post.compId}",
             title: "${post.title}",
+            content: "${post.content}",
+            address: "${post.address}",
+            function: "${post.function}",
+            job: "${post.job}",
+            location: "${post.location}",
             experience: "${post.experience}",
             endDate: "${post.endDate}"
         }<c:if test="${!status.last}">,</c:if>
     </c:forEach>
 ];
-console.log("Job Postings:", jobPostings);
 </script>
 
 

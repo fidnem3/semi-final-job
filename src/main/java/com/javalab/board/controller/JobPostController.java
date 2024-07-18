@@ -1,12 +1,17 @@
 package com.javalab.board.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +37,21 @@ public class JobPostController {
 
 	@Autowired
 	private JobPostService jobPostService;
+	
 
 	@GetMapping("/list")
 	public String listJobPosts(Model model) {
-		log.info("JobPostController listJobPosts");
-		List<JobPostVo> jobPosts = jobPostService.getAllJobPosts();
-		model.addAttribute("jobPosts", jobPosts);
-		return "jobPost/list";
+	    log.info("JobPostController listJobPosts");
+	    List<JobPostVo> jobPosts = jobPostService.getAllJobPosts();
+	    
+	    // 각 JobPostVo 객체의 fileName과 filePath 로깅
+	    for (JobPostVo post : jobPosts) {
+	        log.info("JobPost: id={}, title={}, fileName={}, filePath={}", 
+	                 post.getJobPostId(), post.getTitle(), post.getFileName(), post.getFilePath());
+	    }
+	    
+	    model.addAttribute("jobPosts", jobPosts);
+	    return "jobPost/list";
 	}
 
 	@GetMapping("/detail/{id}")
@@ -67,107 +80,95 @@ public class JobPostController {
 
 	@PostMapping("/create")
 	public String createJobPost(@ModelAttribute("jobPost") JobPostVo jobPost, BindingResult bindingResult,
-			@RequestParam("files") ArrayList<MultipartFile> files, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-		log.info("JobPostController createJobPost - Received jobPost: {}", jobPost);
+	        @RequestParam("file") MultipartFile file, HttpSession session,
+	        RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	    log.info("JobPostController createJobPost - Received jobPost: {}", jobPost);
 
-		JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
-		if (jobSeekerVo == null) {
-			log.error("JobSeekerVo not found in session");
-			return "redirect:/login";
-		}
+	    JobSeekerVo jobSeekerVo = (JobSeekerVo) session.getAttribute("jobSeekerVo");
+	    if (jobSeekerVo == null) {
+	        log.error("JobSeekerVo not found in session");
+	        return "redirect:/login";
+	    }
 
-		if (bindingResult.hasErrors()) {
-			log.error("Validation errors: {}", bindingResult.getAllErrors());
-			return "jobPost/form";
-		}
+	    if (bindingResult.hasErrors()) {
+	        log.error("Validation errors: {}", bindingResult.getAllErrors());
+	        return "jobPost/form";
+	    }
 
-		// 날짜가 null인 경우 처리
-		if (jobPost.getEndDate() == null) {
-			bindingResult.rejectValue("endDate", "error.endDate", "마감일은 필수입니다.");
-			return "jobPost/form";
-		}
+	    if (jobPost.getEndDate() == null) {
+	        bindingResult.rejectValue("endDate", "error.endDate", "마감일은 필수입니다.");
+	        return "jobPost/form";
+	    }
 
-		try {
-			// 파일 업로드 처리
-			String uploadDir = "c:\\filetest\\upload\\";
-			for (MultipartFile file : files) {
-				if (!file.isEmpty()) {
-					try {
-						String originalFileName = file.getOriginalFilename();
-						String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
-						log.info("업로드 파일명 : " + uniqueFileName);
-						File dest = new File(uploadDir + uniqueFileName);
-						file.transferTo(dest);
+	    try {
+	        // 날짜 형식 변환
+	        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        String formattedDate = outputFormat.format(jobPost.getEndDate());
+	        jobPost.setEndDate(outputFormat.parse(formattedDate));
 
-						// JobPostVo에 파일 정보 설정
-						jobPost.setFileName(originalFileName);
-						jobPost.setFilePath("/uploads/" + uniqueFileName);
+	        String uploadDir = "C:\\filetest\\upload";
+	        String webAccessPath = "/uploads/";
 
-						// 첫 번째 파일만 처리하고 루프 종료
-						break;
-					} catch (Exception e) {
-						log.error("파일 업로드 실패", e);
-						redirectAttributes.addFlashAttribute("error", "파일 업로드 중 오류가 발생했습니다: " + e.getMessage());
-						return "jobPost/form";
-					}
-				}
-			}
+	        if (!file.isEmpty()) {
+	            try {
+	                String originalFileName = file.getOriginalFilename();
+	                String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
+	                File dest = new File(uploadDir + uniqueFileName);
+	                file.transferTo(dest);
 
-			jobPost.setCompId(jobPost.getCompId());
-			jobPost.setScrapCount(0);
-			jobPostService.createJobPost(jobPost);
-			redirectAttributes.addFlashAttribute("message", "채용 공고가 성공적으로 등록되었습니다.");
-			return "redirect:/jobPost/list";
-		} catch (Exception e) {
-			log.error("Error creating job post", e);
-			redirectAttributes.addFlashAttribute("error", "채용 공고 등록 중 오류가 발생했습니다: " + e.getMessage());
-			return "jobPost/form";
-		}
+	                jobPost.setFileName(originalFileName);
+	                jobPost.setFilePath("/uploads/" + uniqueFileName);
+	            } catch (IOException e) {
+	                log.error("파일 업로드 실패", e);
+	                redirectAttributes.addFlashAttribute("error", "파일 업로드 중 오류가 발생했습니다: " + e.getMessage());
+	                return "jobPost/form";
+	            }
+	        }
+
+	        jobPost.setCompId(jobPost.getCompId()); // jobSeekerVo에서 compId를 가져옵니다.
+	        jobPost.setScrapCount(0);
+	        jobPostService.createJobPost(jobPost);
+	        redirectAttributes.addFlashAttribute("message", "채용 공고가 성공적으로 등록되었습니다.");
+	        return "redirect:/jobPost/list";
+	    } catch (ParseException e) {
+	        log.error("Date parsing error", e);
+	        bindingResult.rejectValue("endDate", "error.endDate", "날짜 형식이 올바르지 않습니다.");
+	        return "jobPost/form";
+	    } catch (Exception e) {
+	        log.error("Error creating job post", e);
+	        redirectAttributes.addFlashAttribute("error", "채용 공고 등록 중 오류가 발생했습니다: " + e.getMessage());
+	        return "jobPost/form";
+	    }
 	}
 
 	@GetMapping("/edit/{id}")
-	public String editJobPostForm(@PathVariable("id") String jobPostId, Model model, HttpSession session) {
-		log.info("JobPostController editJobPostForm: id = {}", jobPostId);
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
-			return "redirect:/login";
-		}
-		JobPostVo jobPost = jobPostService.getJobPostById(jobPostId);
-		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/404"; // 권한 없음
-		}
-		model.addAttribute("jobPost", jobPost);
-		return "jobPost/form";
+	public String editJobPostForm(@PathVariable("id") String jobPostId, Model model) {
+	    log.info("JobPostController editJobPostForm: id = {}", jobPostId);
+	    
+	    JobPostVo jobPost = jobPostService.getJobPostById(jobPostId);
+	    if (jobPost == null) {
+	        log.warn("JobPost not found for ID: {}", jobPostId);
+	        return "error/404error";
+	    }
+	    
+	    model.addAttribute("jobPost", jobPost);
+	    return "jobPost/update";
 	}
 
 	@PostMapping("/update")
-	public String updateJobPost(@ModelAttribute("jobPost") JobPostVo jobPost, HttpSession session) {
-		log.info("JobPostController updateJobPost: id = {}", jobPost.getJobPostId());
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
-			return "redirect:/login";
-		}
-		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/404"; // 권한 없음
-		}
-		jobPostService.updateJobPost(jobPost);
-		return "redirect:/jobPost/list";
+	public String updateJobPost(@ModelAttribute("jobPost") JobPostVo jobPost) {
+	    log.info("JobPostController updateJobPost: id = {}", jobPost.getJobPostId());
+	    
+	    jobPostService.updateJobPost(jobPost);
+	    return "redirect:/jobPost/list";
 	}
 
 	@PostMapping("/delete")
-	public String deleteJobPost(@RequestParam("id") String jobPostId, HttpSession session) {
-		log.info("JobPostController deleteJobPost: id = {}", jobPostId);
-		JobSeekerVo memberVo = (JobSeekerVo) session.getAttribute("memberVo");
-		if (memberVo == null) {
-			return "redirect:/login";
-		}
-		JobPostVo jobPost = jobPostService.getJobPostById(jobPostId);
-		if (!jobPost.getCompId().equals(memberVo.getJobSeekerId())) {
-			return "error/404"; // 권한 없음
-		}
-		jobPostService.deleteJobPost(jobPostId);
-		return "redirect:/jobPost/list";
+	@ResponseBody
+	public String deleteJobPost(@RequestParam("id") String jobPostId) {
+	    log.info("JobPostController deleteJobPost: id = {}", jobPostId);
+	    jobPostService.deleteJobPost(jobPostId);
+	    return "success";
 	}
 
 	@GetMapping("/scrapList")

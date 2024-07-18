@@ -10,7 +10,8 @@
 <body>
 	<h1>채용 공고 작성</h1>
 
-	<form:form action="/jobPost/create" method="post" modelAttribute="jobPost" enctype="multipart/form-data">
+	<form:form action="/jobPost/create" method="post"
+		modelAttribute="jobPost" enctype="multipart/form-data">
 		<div>
 			<label for="compId">회사Id</label>
 			<form:input path="compId" required="required" />
@@ -52,8 +53,8 @@
 				id="endDate" value="${jobPost.endDate}">
 		</div>
 		<div>
-			 <label for="files">이미지 첨부1:</label> 
-            <input type="file" name="files" multiple>
+			<label for="file">이미지 첨부:</label> <input type="file" name="file"
+				accept="image/*">
 		</div>
 		<div>
 			<input type="submit" value="등록">

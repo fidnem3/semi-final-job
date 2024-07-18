@@ -5,6 +5,7 @@ let selectedFilters = {
     location: []
 };
 
+
 function toggleFilterOptions(filterType) {
     const filterElement = document.getElementById(filterType + 'Filter');
     if (filterElement) {
@@ -65,22 +66,29 @@ function displayJobPostings(postings) {
     }
     
     postings.forEach(posting => {
+    console.log('Full posting object:', posting);
         const postingElement = document.createElement('div');
         postingElement.className = 'col';
         // 이미지 URL 생성 로직 수정
-         const imageUrl = posting.filePath ? posting.filePath : '/resources/image/10.png';
-        postingElement.innerHTML = `
+          console.log('fileName:', posting.fileName);
+          console.log('filePath:', posting.filePath);
+         const imageUrl = posting.fileName && posting.filePath ? `/uploads/${posting.fileName}` : '/resources/image/10.png';
+         console.log('imageUrl:', imageUrl);
+         postingElement.innerHTML = `
             <div class="card shadow-sm" style="cursor: pointer;">
-                <img src="${imageUrl}" class="card-img-top" alt="${posting.title}" style="height: 225px; object-fit: cover;">
+                <img src="${imageUrl}" class="card-img-top" alt="${posting.title}" 
+     style="height: 225px; object-fit: cover;"
+     onerror="this.onerror=null; this.src='/resources/image/10.png'; console.error('Image load failed:', this.src);">
                 <div class="card-body">
                     <h5 class="card-title">${posting.title}</h5>
                     <p class="card-text"><strong>경력:</strong> ${posting.experience}</p>
-                    <p class="card-text"><strong>마감일:</strong> ${posting.endDate}</p>
-                    <p class="card-text"><strong>내용:</strong> ${posting.content}</p>
+                    <p class="card-text"><strong>직업:</strong> ${posting.job}</p>
+                    <p class="card-text"><strong>지역:</strong> ${posting.location}</p>
+                    <p class="card-text"><strong>기능:</strong> ${posting.function}</p>
                 </div>
             </div>
         `;
-        
+        	
         const card = postingElement.querySelector('.card');
         
         card.addEventListener('click', function(e) {
@@ -104,6 +112,8 @@ function openJobDetails(jobPostId) {
     const url = `/jobPost/detail/${jobPostId}`;
     window.open(url, '_blank', 'width=800,height=600');
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     applyFilters();
