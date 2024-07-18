@@ -29,8 +29,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void updateResume(ResumeVo resume) {
-        resumeMapper.updateResume(resume);
+    public int updateResume(ResumeVo resume) {
+        return resumeMapper.updateResume(resume);
     }
     
     

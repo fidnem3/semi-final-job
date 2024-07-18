@@ -41,7 +41,7 @@
     </select>
      
     <update id="updateResume" parameterType="com.javalab.board.vo.ResumeVo">
-    UPDATE RESUME
+<!--     UPDATE RESUME
     SET JOBSEEKER_ID = #{jobSeekerId}, 
         TITLE = #{title}, 
         CONTENT = #{content}, 
@@ -51,8 +51,19 @@
         HIT_NO = #{hitNo}, 
         FILE_NAME = #{fileName}, 
         FILE_PATH = #{filePath}
-    WHERE RESUME_ID = #{resumeId}
+    WHERE RESUME_ID = #{resumeId} -->
+    
+    
+         UPDATE RESUME
+        SET title = #{title},
+            education = #{education},
+            experience = #{experience},
+            link = #{link},
+            content = #{content}
+        WHERE RESUME_ID = #{resumeId}
 </update>
+    
+
     
     
     

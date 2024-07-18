@@ -42,28 +42,48 @@ public class LoginController {
      * @param session : 로그인 사용자의 정보를 세션보관하기 위해서 필요
      * @param redirectAttributes : sendRedirect로 옮겨간 페이지에서 사용가능, 일회성
      */
+    
+    
+	/* 원래 꺼 
+	 * @PostMapping("/login") public String login(@ModelAttribute("jobSeekerVo")
+	 * JobSeekerVo jobSeekerVo, HttpSession session, RedirectAttributes
+	 * redirectAttributes, Model model) { // 사용자 조회 JobSeekerVo LoginJobSeekerVo =
+	 * loginService.login(jobSeekerVo); // 조회 결과가 있으면 세션에 저장 if (LoginJobSeekerVo !=
+	 * null) { session.setAttribute("jobSeekerVo", LoginJobSeekerVo);
+	 * log.info("세션에 사용자 저장 완료 "); // 세션에 저장한 사용자 정보 조회 //JobSeekerVo jobSeeker =
+	 * (JobSeekerVo) session.getAttribute("jobSeekerVo"); return
+	 * "redirect:/jobPost/list"; // 게시물 목록 페이지로 리다이렉트 } else {
+	 * //model.addAttribute("error", "아이디와 비밀번호를 확인하세요");
+	 * redirectAttributes.addFlashAttribute("error", "아이디와 비밀번호를 확인하세요"); // 다음
+	 * jsp화면에서 jobSeekerVo 이름으로 죄회가능. 단 일회성으로 새로고침하면 사라짐
+	 * redirectAttributes.addFlashAttribute("jobSeekerVo", jobSeekerVo); return
+	 * "redirect:/login"; // /login 요청(로그인 폼) } }
+	 */
+    
+    // resume test 수정
     @PostMapping("/login")
     public String login(@ModelAttribute("jobSeekerVo") JobSeekerVo jobSeekerVo, 
-                   HttpSession session, 
-                   RedirectAttributes redirectAttributes, 
-                   Model model) {
-       // 사용자 조회
+                       HttpSession session, 
+                       RedirectAttributes redirectAttributes, 
+                       Model model) {
+        // 사용자 조회
         JobSeekerVo LoginJobSeekerVo = loginService.login(jobSeekerVo);
         // 조회 결과가 있으면 세션에 저장
         if (LoginJobSeekerVo != null) {
             session.setAttribute("jobSeekerVo", LoginJobSeekerVo);
+            session.setAttribute("jobSeekerId", LoginJobSeekerVo.getJobSeekerId()); // jobSeekerId 저장
             log.info("세션에 사용자 저장 완료 ");
-            // 세션에 저장한 사용자 정보 조회
-            //JobSeekerVo jobSeeker = (JobSeekerVo) session.getAttribute("jobSeekerVo");
             return "redirect:/jobPost/list"; // 게시물 목록 페이지로 리다이렉트
         } else {
-            //model.addAttribute("error", "아이디와 비밀번호를 확인하세요");
-           redirectAttributes.addFlashAttribute("error", "아이디와 비밀번호를 확인하세요");
-           // 다음 jsp화면에서 jobSeekerVo 이름으로 죄회가능. 단 일회성으로 새로고침하면 사라짐
-           redirectAttributes.addFlashAttribute("jobSeekerVo", jobSeekerVo);
-            return "redirect:/login"; // /login 요청(로그인 폼)
+            redirectAttributes.addFlashAttribute("error", "아이디와 비밀번호를 확인하세요");
+            redirectAttributes.addFlashAttribute("jobSeekerVo", jobSeekerVo);
+            return "redirect:/"; // /login 요청(로그인 폼)
         }
     }
+    
+
+
+
     
     
     /**

@@ -61,8 +61,8 @@
 
 
     <!-- SQL 관련 설정 -->
-    <logger name="jdbc.sqltiming" level="DEBUG"/> 		<!-- SQL 실행 시간 -->
-    <logger name="jdbc.resultsettable" level="DEBUG"/> 	<!-- ResultSet 정보 -->
+    <logger name="jdbc.sqltiming" level="info"/> 		<!-- SQL 실행 시간 -->
+    <logger name="jdbc.resultsettable" level="info"/> 	<!-- ResultSet 정보 -->
     <logger name="jdbc.audit" level="OFF"/> 			<!-- SQL 실행 결과 -->
     <logger name="jdbc.resultset" level="OFF"/> 		<!-- ResultSet 정보 -->
 	<!-- 지역 로거 종료 -->

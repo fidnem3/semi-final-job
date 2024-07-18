@@ -8,7 +8,7 @@ public interface ResumeMapperInterface {
     List<ResumeVo> getAllResumes();
     void insertResume(ResumeVo resume);
     ResumeVo selectResumeById(int resumeId);
-    void updateResume(ResumeVo resume);
+    int updateResume(ResumeVo resume);
     void deleteResume(int resumeId);
     void insertSkill(ResumeSkillVo resumeSkill);
 }

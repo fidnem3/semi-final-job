@@ -113,7 +113,7 @@
 </html>
  --%>
  
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.javalab.board.vo.ResumeVo" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +125,7 @@
 <body>
     <div class="container">
         <h1 class="mt-5">이력서 수정</h1>
-        <form id="resumeForm" method="post" action="/resumes/${resume.resumeId}/update">
+        <form id="resumeForm">
             <input type="hidden" id="resumeId" name="resumeId" value="${resume.resumeId}">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
@@ -171,38 +171,45 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
+   <script>
+   
+   	let jobSeekerId = '${sessionScope.jobSeekerVo.jobSeekerId}';
+   	
+    function updateResume() {
         let resumeId = $('#resumeId').val();
+        const resumeData = {
+            resumeId: resumeId,
+            title: $('#title').val(),
+            education: $('#education').val(),
+            experience: $('#experience').val(),
+            link: $('#link').val(),
+            content: $('#content').val()
+        };
 
-        function updateResume() {
-            const resumeData = {
-            	resumeId: resumeId,
-            	title: $('#title').val(),
-                education: $('#education').val(),
-                experience: $('#experience').val(),
-                link: $('#link').val(),
-                content: $('#content').val()
-            };
+        console.log("Sending data:", resumeData);
 
-            $.ajax({
-                url: '/resumes/' + resumeId + '/update',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(resumeData),
-                success: function(response) {
-                    alert('이력서가 성공적으로 업데이트 되었습니다.');
-                    window.location.href = '/resumes'; // 업데이트 완료 후 목록 페이지로 이동
-                },
-                error: function(xhr, status, error) {
-                    alert('이력서 업데이트 중 오류가 발생했습니다.');
-                }
-            });
-        }
+        $.ajax({
+            url: '/resumes/' + resumeId + '/update',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(resumeData),
+            success: function(response) {
+                console.log("Response:", response);
+                alert('이력서가 성공적으로 업데이트 되었습니다.');
+                window.location.href = '/resumes'; // 업데이트 완료 후 목록 페이지로 이동
+            },
+            error: function(xhr, status, error) {
+                console.error("Error Status:", status);
+                console.error("XHR:", xhr);
+                console.error("Error:", error);
+                alert('이력서 업데이트 중 오류가 발생했습니다.');
+            }
+        });
+    }
     </script>
-
 </body>
 </html>
+
  

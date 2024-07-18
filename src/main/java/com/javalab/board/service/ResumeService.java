@@ -7,7 +7,7 @@ public interface ResumeService {
     void createResume(ResumeVo resume);
     public ResumeVo getResumeById(int resumeId);
     public List<ResumeVo> getAllResumes();
-    void updateResume(ResumeVo resume);
+    int updateResume(ResumeVo resume);
     void deleteResume(int resumeId);
     void insertSkills(int resumeId, List<String> skills);
 }
