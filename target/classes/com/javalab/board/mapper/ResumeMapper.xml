@@ -41,19 +41,6 @@
     </select>
      
     <update id="updateResume" parameterType="com.javalab.board.vo.ResumeVo">
-<!--     UPDATE RESUME
-    SET JOBSEEKER_ID = #{jobSeekerId}, 
-        TITLE = #{title}, 
-        CONTENT = #{content}, 
-        EDUCATION = #{education},
-        EXPERIENCE = #{experience}, 
-        LINK = #{link}, 
-        HIT_NO = #{hitNo}, 
-        FILE_NAME = #{fileName}, 
-        FILE_PATH = #{filePath}
-    WHERE RESUME_ID = #{resumeId} -->
-    
-    
          UPDATE RESUME
         SET title = #{title},
             education = #{education},
@@ -67,21 +54,7 @@
     
     
     
-    
-    <!-- <update id="updateResume">
-        UPDATE RESUME
-        SET JOBSEEKER_ID = #{jobSeekerId,jdbcType=NUM}, 
-            TITLE = #{title,jdbcType=VARCHAR}, 
-            CONTENT = #{content,jdbcType=VARCHAR}, 
-            EDUCATION = #{education,jdbcType=VARCHAR},
-            EXPERIENCE = #{experience,jdbcType=VARCHAR}, 
-            LINK = #{link,jdbcType=VARCHAR}, 
-            HIT_NO = #{hitNo,jdbcType=NUMBER}, 
-            FILE_NAME = #{fileName,jdbcType=VARCHAR}, 
-            FILE_PATH = #{filePath,jdbcType=VARCHAR}
-        WHERE RESUME_ID = #{resumeId,jdbcType=NUMBER}
-    </update>
- -->
+ 
     <delete id="deleteResume">
         DELETE FROM RESUME WHERE RESUME_ID = #{resumeId}
     </delete>
