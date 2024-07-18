@@ -171,6 +171,12 @@ public class JobPostController {
 	    return "success";
 	}
 
+
+
+
+
+
+
 	@GetMapping("/scrapList")
 	public String scrapList(Model model, HttpSession session) {
 		// 세션에서 로그인한 사용자의 아이디를 가져옵니다.
