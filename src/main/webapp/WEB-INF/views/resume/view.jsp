@@ -23,10 +23,9 @@
                     </div>
                     <div class="col-9">
                         <p><strong>이름:</strong> ${jobSeekerVo.name}</p>
-                        <p><strong>생년월일:</strong> ${jobSeekerVo.birth}</p>
                         <p><strong>Email:</strong> ${jobSeekerVo.email}</p>
                         <p><strong>연락처:</strong> ${jobSeekerVo.tel}</p>
-                        <p><strong>주소:</strong> ${jobSeekerVo.address}</p>
+                        <!-- <p><strong>주소:</strong> ${jobSeekerVo.address}</p> -->
                         <p><strong>학력:</strong> ${resume.education}</p>
                         <p><strong>경력:</strong> ${resume.experience}</p>
                         <p><strong>링크:</strong> <a href="${resume.link}" target="_blank">${resume.link}</a></p>
