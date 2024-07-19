@@ -10,35 +10,48 @@
     
     <style>
 
+header {
+   background-color: #333;
+   color: white;
+   padding: 1em;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+header .logo {
+   display: flex;
+   align-items: center;
+}
+
 header .logo h1 {
-    margin: 0;
-    margin-right: 1em;
+   margin: 0;
+   margin-right: 1em;
 }
 
 header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
 }
 
 header nav ul li {
-    margin-left: 1em;
+   margin-left: 1em;
 }
 
 header nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
+   color: white;
+   text-decoration: none;
+   padding: 0.5em 1em;
+   border-radius: 4px;
+   transition: background-color 0.3s, color 0.3s;
 }
 
 header nav ul li a:hover {
-    background-color: #555;
-    color: #fff;
+   background-color: #555;
+   color: #fff;
 }
-
 footer {
     background-color: #f9f9f9;
     color: black;
@@ -102,7 +115,7 @@ footer .sns i {
             </ul>
         </nav>
   </header>
-<main>
+  
 <div class="container">
     <h1 class="mt-5">이력서 목록</h1>
     <div class="mb-3">
@@ -144,7 +157,6 @@ footer .sns i {
     </table>
     
 	</div>
-</main>
 
  <footer>
         <div class="footer-info">
