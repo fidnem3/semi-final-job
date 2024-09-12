@@ -17,12 +17,16 @@
 
 - ## 주요 기능
 
-  
+  ![스크린샷 2024-09-12 194622](https://github.com/user-attachments/assets/64960345-49a8-4a22-8027-59d8813aea5b)
 
 
-    
+![스크린샷 2024-09-12 194042](https://github.com/user-attachments/assets/459b31b5-b29c-4e86-9fc3-fad8a27980a0)
+
+    ![스크린샷 2024-09-12 194019](https://github.com/user-attachments/assets/13013eb2-e207-4293-b204-aadf7c67c678)
+
   
- 
+ ![스크린샷 2024-09-12 194008](https://github.com/user-attachments/assets/a7513276-7873-4cbb-b8c4-8d5565f684c5)
+
 
 - ## 팀원 소개 
 <table>
