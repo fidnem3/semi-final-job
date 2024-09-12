@@ -19,24 +19,16 @@
 <div align="center">
   <div style="display: flex; flex-wrap: wrap; justify-content: center;">
     <div style="width: 200px; margin: 10px; text-align: center;">
-      <h4>기능 이름 1</h4>
-      <img src="https://github.com/user-attachments/assets/5ca53bf9-e7a9-474a-812a-e565f96b789a" width="200" height="150" alt="기능 1">
+  
 
     
       <h4>기능 이름 2</h4>
       <img src="https://github.com/user-attachments/assets/a2ad8c12-ec44-4005-af79-5537da8c7a5d" width="200" height="150" alt="기능 2">
+      </div>
     
     
   
-      <h4>기능 이름 3</h4>
-      <img src="https://github.com/user-attachments/assets/8a79f21a-4977-4cbc-b674-7e4207580935" width="200" height="150" alt="기능 3">
-
-
-      <h4>기능 이름 4</h4>
-      <img src="https://github.com/user-attachments/assets/0f19ad68-7417-4c31-860d-de785792ede1" width="200" height="150" alt="기능 4">
-    </div>
-  </div>
-</div>
+ 
 
 - ## 팀원 소개 
 <table>
