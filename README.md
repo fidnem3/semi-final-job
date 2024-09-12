@@ -23,24 +23,24 @@
       <td align="center">
         <b>기능 이름 1</b>
         <br>
-        <img src="https://github.com/user-attachments/assets/64960345-49a8-4a22-8027-59d8813aea5b" width="300" height="auto" alt="기능 1">
+        <img src="https://github.com/user-attachments/assets/64960345-49a8-4a22-8027-59d8813aea5b" width="500" height="auto" alt="기능 1">
       </td>
       <td align="center">
         <b>기능 이름 2</b>
         <br>
-        <img src="https://github.com/user-attachments/assets/459b31b5-b29c-4e86-9fc3-fad8a27980a0" width="300" height="auto" alt="기능 2">
+        <img src="https://github.com/user-attachments/assets/459b31b5-b29c-4e86-9fc3-fad8a27980a0" width="500" height="auto" alt="기능 2">
       </td>
     </tr>
     <tr>
       <td align="center">
         <b>기능 이름 3</b>
         <br>
-        <img src="https://github.com/user-attachments/assets/13013eb2-e207-4293-b204-aadf7c67c678" width="300" height="auto" alt="기능 3">
+        <img src="https://github.com/user-attachments/assets/13013eb2-e207-4293-b204-aadf7c67c678" width="500" height="auto" alt="기능 3">
       </td>
       <td align="center">
         <b>기능 이름 4</b>
         <br>
-        <img src="https://github.com/user-attachments/assets/a7513276-7873-4cbb-b8c4-8d5565f684c5" width="300" height="auto" alt="기능 4">
+        <img src="https://github.com/user-attachments/assets/a7513276-7873-4cbb-b8c4-8d5565f684c5" width="500" height="auto" alt="기능 4">
       </td>
     </tr>
   </tbody>
