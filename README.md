@@ -123,5 +123,5 @@
 </div>
 
 - ## 프로젝트 아키텍쳐
-- ERD
-- ![스크린샷 2024-08-27 113207](https://github.com/user-attachments/assets/5e07c004-1699-4d83-94ef-3033a6472c44)
+- ERD : https://www.erdcloud.com/d/QwYeEzY2KoJNdz95W
+  
