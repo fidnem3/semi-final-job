@@ -16,10 +16,29 @@
 - 주요기능은 이력서 C/R/U/D, 공고C/R/U/D, 공고 필터링, 스크랩기능을 구현하였습니다.
 
 - ## 주요 기능
-![스크린샷 2024-09-12 194008](https://github.com/user-attachments/assets/5ca53bf9-e7a9-474a-812a-e565f96b789a)
-![스크린샷 2024-09-12 194019](https://github.com/user-attachments/assets/a2ad8c12-ec44-4005-af79-5537da8c7a5d)
-![스크린샷 2024-09-12 194042](https://github.com/user-attachments/assets/8a79f21a-4977-4cbc-b674-7e4207580935)
-
+<div align="center">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <div style="width: 200px; margin: 10px; text-align: center;">
+      <h4>기능 이름 1</h4>
+      <img src="https://github.com/user-attachments/assets/5ca53bf9-e7a9-474a-812a-e565f96b789a" width="200px" height="150px" alt="기능 1">
+    </div>
+    
+    <div style="width: 200px; margin: 10px; text-align: center;">
+      <h4>기능 이름 2</h4>
+      <img src="https://github.com/user-attachments/assets/a2ad8c12-ec44-4005-af79-5537da8c7a5d" width="200px" height="150px" alt="기능 2">
+    </div>
+    
+    <div style="width: 200px; margin: 10px; text-align: center;">
+      <h4>기능 이름 3</h4>
+      <img src="https://github.com/user-attachments/assets/8a79f21a-4977-4cbc-b674-7e4207580935" width="200px" height="150px" alt="기능 3">
+    </div>
+    
+    <div style="width: 200px; margin: 10px; text-align: center;">
+      <h4>기능 이름 4</h4>
+      <img src="https://github.com/user-attachments/assets/0f19ad68-7417-4c31-860d-de785792ede1" width="200px" height="150px" alt="기능 4">
+    </div>
+  </div>
+</div>
 - ## 팀원 소개 
 <table>
   <tbody>
