@@ -16,16 +16,10 @@
 - 주요기능은 이력서 C/R/U/D, 공고C/R/U/D, 공고 필터링, 스크랩기능을 구현하였습니다.
 
 - ## 주요 기능
-<div align="center">
-  <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <div style="width: 200px; margin: 10px; text-align: center;">
+
   
 
-    
-      <h4>기능 이름 2</h4>
-      <img src="https://github.com/user-attachments/assets/a2ad8c12-ec44-4005-af79-5537da8c7a5d" width="200" height="150" alt="기능 2">
-      </div>
-    
+
     
   
  
