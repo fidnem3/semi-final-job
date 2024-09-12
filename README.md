@@ -21,7 +21,7 @@
   <tbody>
     <tr>
       <td align="center">
-        <b>기능 이름 1</b>
+        <b>이력서 작성 화면</b>
         <br>
         <img src="https://github.com/user-attachments/assets/64960345-49a8-4a22-8027-59d8813aea5b" width="500" height="auto" alt="기능 1">
       </td>
